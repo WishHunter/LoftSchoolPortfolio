@@ -2,14 +2,27 @@ include ./mixins.pug
 
 <!DOCTYPE html>
 html(lang="en")
-  head
-    meta(charset="UTF-8")
-    meta(name="viewport", content="width=device-width, initial-scale=1.0")
-    meta(http-equiv="X-UA-Compatible", content="ie=edge")
-    title Portfolio | main page
-  body
-    .wrapper
-      .maincontent
-        +image('content/user.jpg', 'user-pic')
-        +icon('link', 'link-class')
-        .icon-bg
+	head
+		meta(charset="UTF-8")
+		meta(name="viewport", content="width=device-width, initial-scale=1.0")
+		meta(http-equiv="X-UA-Compatible", content="ie=edge")
+		<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,800&display=swap&subset=cyrillic" rel="stylesheet">
+		title Portfolio | main page
+	body
+		.wrapper
+			.maincontent
+
+			.bg-train
+				.parallax.bg-train__parallax
+					//- +image('content/parallax1.png', 'parallax__img parallax__img-sky')
+					//- +image('content/parallax2.png', 'parallax__img parallax__img-train')
+					//- +image('content/parallax3.png', 'parallax__img parallax__img-ground')
+
+					
+				+hero()
+				+about()
+
+			+skills()
+			+works()
+
+			.bg-autumn

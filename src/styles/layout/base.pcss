@@ -14,6 +14,7 @@ html {
 body {
   font-family: 'Open Sans', Helvetica, sans-serif;
   font-size: 16px;
+	font-weight: 600;
   line-height: 1.42;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -30,7 +31,6 @@ body {
   margin: 0 auto;
   max-width: 1480px;
   width: 95%;
-  // width: 1490px;
 
   @include phones {
     width: 85%;
@@ -81,7 +81,14 @@ a {
   color: inherit;
   cursor: pointer;
 }
-
+.link {
+	text-decoration: none;
+	color: $links-color;
+	
+	&:hover, &:active, &:focus {
+		text-decoration: underline;
+	}
+}
 img {
   display: block;
   max-width: 100%;

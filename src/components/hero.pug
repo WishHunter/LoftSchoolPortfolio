@@ -1,0 +1,35 @@
+mixin header(className, logo, menu, socNet)
+	div(class=`header ${className}__header`)
+		.container
+			.header__flex
+				p.header__logo #{logo}
+				ul.nav.header__nav
+					for item in menu
+						li.nav__item 
+							a.nav__link.js-scrollTo(href=`#${item.link}`) #{item.name}
+
+				ul.socNet.header__socNet
+					for social in socNet
+						li.socNet__item
+							a.socNet__link(href= social.link target='_blank') 
+								+icon(social.name, 'socNet__icon')
+
+					
+mixin hero()
+	section.fullscreen-section.hero#hero
+		- let menuItem = [{name:'Главная',link:'hero'},{name:'Обо мне',link:'about'},{name:'Навыки',link:'skills'},{name:'Работы',link:'works'},{name:'Отзывы',link:'reviews'},{name:'Связаться',link:'contact'}]
+		- let socNetItem = [{name:'insta',link:'#'},{name:'vk',link:'#'},{name:'github',link:'#'}]
+
+		+header('hero', 'ДМ', menuItem, socNetItem)
+		.hero__title
+			p.hero__title-desc 
+				|Личный сайт
+				br 
+				|веб разработчика
+			h1.hero__title-name
+				|Денис
+				br 
+				|Мольков
+		a.hero__scroll-down.js-scrollTo(href='#about')
+			p.hero__scroll-down-text Скролл
+			+icon('scroll', 'hero__scroll-down-icon')

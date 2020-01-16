@@ -1,0 +1,30 @@
+mixin works()
+	section.works#works
+		.container
+			h2.works__title Мои работы
+			.works__slider
+				.works__slider-img-block
+					+image('content/work1.jpg', 'works__slider-img works__slider-slide1')
+					.works__slider-nav
+						a.works__slider-nav-prev.js-disabled(href="#")
+						.works__slider-nav-dots
+							a.works__slider-nav-dot-link.js-active(href="#" data-slide="slide1")
+								+image('content/work1.jpg', 'works__slider-nav-dot')
+							a.works__slider-nav-dot-link(href="#" data-slide="slide2")
+								+image('content/work2.jpg', 'works__slider-nav-dot')
+							a.works__slider-nav-dot-link(href="#" data-slide="slide3")
+								+image('content/work3.jpg', 'works__slider-nav-dot')
+							a.works__slider-nav-dot-link(href="#" data-slide="slide4")
+								+image('content/work4.jpg', 'works__slider-nav-dot')
+						a.works__slider-nav-next(href="#")
+				.works__slider-text-block
+					.works__slider-slide1
+						.works__slider-tags
+							span.works__slider-tag HTML
+							span.works__slider-tag CSS
+							span.works__slider-tag JavaScript
+						h3.works__slider-title Сайт школы образования
+						p.works__slider-desc Этот парень проходил обучение веб-разработке не где-то, а в LoftSchool! 2 месяца только самых тяжелых испытаний и бессонных ночей!
+						a.link.works__slider-link(href="#")
+							+icon('link', 'works__slider-link-icon')
+							span Посмотреть сайт
