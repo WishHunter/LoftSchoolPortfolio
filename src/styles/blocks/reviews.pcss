@@ -1,3 +1,114 @@
 .reviews {
+	padding: 150px 0 100px;	
+
+	&__container {
+		width: 66.6%;
+	}
+
+	&__header {
+		display: flex;
+		margin-bottom: 100px;
+	}
+
+	&__title {
+		color: #fff;
+		font-weight: bold;
+		line-height: 1;
+		font-size: 36px;
+	}
+
+	&__arrows {
+		margin-left: 105px;
+		display: flex;
+	}
+
+	&__arrow {
+		margin: 0 15px;
+		width: 48px;
+		height: 48px;
+		border: 1px solid #353e4e;
+		border-radius: 50%;
+		background-color: transparent;
+		background-image: svg-load('arrow-down.svg', fill=#fff, width=8px, height=10px);
+		background-repeat: no-repeat;
+		background-position: center center;
+		@include transition(background);
+
+		&--prev {
+			transform: rotate(180deg);
+		}
+
+		&:hover, &:focus {
+			background-color: $main-color;
+		}
+	}
+}
+
+.slider {
+	display: flex;
+
+	&__slide {
+		flex-basis: 50%;
+		margin-right: 80px;
+
+		&:last-of-type {
+			margin: 0;
+		}
+	}
+}
+
+.review {
+	position: relative;
+	display: flex;
+	padding-left: 95px;
+	flex-direction: column;
+	justify-content: space-between;
 	
+	&:before {
+		content: '';
+		position: absolute;
+		display: block;
+		width: 75px;
+		height: 63px;
+		left: 0;
+		top: 0;
+		background-image: svg-load('quote.svg', fill=#fff, width=75px, height=63px);
+		opacity: .05;
+	}
+
+	&__text {
+		color: rgba(#ffffff, 0.5);
+		line-height: 1.875;
+		font-weight: 600;
+		margin-bottom: 30px;
+	}
+
+	&__autor {
+		display: flex;
+	}
+
+	&__autor-photo {
+		border-radius: 100%;
+		width: 75px;
+		overflow: hidden;
+		margin-right: 30px;
+	}
+
+	&__autor-text {
+		display: flex;
+		flex-direction: column;
+		justify-content: space-around;
+	}
+
+	&__autor-name {
+		font-size: 18px;
+		color: #fff;
+		font-weight: bold;
+	}
+
+	&__autor-desc {
+		color: rgba(#ffffff, 0.3);
+		line-height: 1.875;
+		font-weight: 600;
+	}
 }

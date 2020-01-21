@@ -1,0 +1,17 @@
+mixin contact()
+	section.contact#contact
+		.container
+			h2.contact__title Связаться со мной
+			form.contact__form.form(action="" method="post")
+				label.form__label.form__label--col50
+					input.form__input.input.input--name(name="name" type="text")
+					span.form__desc Введите ваше имя
+				label.form__label.form__label--col50
+					input.form__input.input.input--email(name="email" type="email")
+					span.form__desc Введите ваш email	
+				label.form__label.form__label--col100
+					textarea.form__input.input.input--message(name="message" rows="1")
+					span.form__desc Сообщение к письму
+				button.button.form__button
+					span.button__text Отправить		
+				

@@ -6,17 +6,17 @@ mixin works()
 				.works__slider-img-block
 					+image('content/work1.jpg', 'works__slider-img works__slider-slide1')
 					.works__slider-nav
-						a.works__slider-nav-prev.js-disabled(href="#")
+						button.works__slider-nav-prev.js-disabled
 						.works__slider-nav-dots
-							a.works__slider-nav-dot-link.js-active(href="#" data-slide="slide1")
+							button.works__slider-nav-dot-link.js-active(data-slide="slide1")
 								+image('content/work1.jpg', 'works__slider-nav-dot')
-							a.works__slider-nav-dot-link(href="#" data-slide="slide2")
+							button.works__slider-nav-dot-link(data-slide="slide2")
 								+image('content/work2.jpg', 'works__slider-nav-dot')
-							a.works__slider-nav-dot-link(href="#" data-slide="slide3")
+							button.works__slider-nav-dot-link(data-slide="slide3")
 								+image('content/work3.jpg', 'works__slider-nav-dot')
-							a.works__slider-nav-dot-link(href="#" data-slide="slide4")
+							button.works__slider-nav-dot-link(data-slide="slide4")
 								+image('content/work4.jpg', 'works__slider-nav-dot')
-						a.works__slider-nav-next(href="#")
+						button.works__slider-nav-next
 				.works__slider-text-block
 					.works__slider-slide1
 						.works__slider-tags

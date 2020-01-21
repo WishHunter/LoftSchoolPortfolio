@@ -1,13 +1,24 @@
 mixin reviews()
 	.reviews
 		.container
-			h2.reviews__title Что обо мне говорят
-			.reviews__slider
-				.reviews__slider-content
-					.reviews__slide
-						p.reviews__text Этот парень проходил обучение веб-разработке не где-то, а в LoftSchool! 4,5 месяца только самых тяжелых испытаний и бессонных ночей!
-						.reviews__autor
-							+image('content/review1.png', 'reviews__autor-photo')
-							.reviews__autor-text
-								p.reviews__autor-name Ковальчук Дмитрий
-								p.reviews__autor-desc Основатель Loftschool
+			.reviews__container
+				.reviews__header
+					h2.reviews__title Что обо мне говорят
+					.reviews__arrows
+						button.reviews__arrow.reviews__arrow--prev
+						button.reviews__arrow.reviews__arrow--next
+				.reviews__slider.slider
+						.slider__slide.review
+							p.review__text Этот парень проходил обучение веб-разработке не где-то, а в LoftSchool! 4,5 месяца только самых тяжелых испытаний и бессонных ночей!
+							.review__autor
+								+image('content/review1.png', 'review__autor-photo')
+								.review__autor-text
+									p.review__autor-name Ковальчук Дмитрий
+									p.review__autor-desc Основатель Loftschool
+						.slider__slide.review
+							p.review__text Этот код выдержит любые испытания. Только пожалуйста, не загружайте сайт на слишком старых браузерах
+							.review__autor
+								+image('content/review2.png', 'review__autor-photo')
+								.review__autor-text
+									p.review__autor-name Владимир Сабанцев
+									p.review__autor-desc Преподаватель
