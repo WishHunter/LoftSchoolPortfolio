@@ -1,0 +1,26 @@
+mixin footer()
+	footer.footer#footer
+		.container
+			.footer__container
+				p.footer__date © 2019
+				.footer__autor
+					.footer__autor-name Денис Мольков
+					.footer__autor-desc Личный сайт веб&nbsp;-&nbsp;разработчика
+				.footer__main
+					- let menu = [{name:'Главная',link:'hero'},{name:'Обо мне',link:'about'},{name:'Навыки',link:'skills'},{name:'Работы',link:'works'},{name:'Отзывы',link:'reviews'},{name:'Связаться',link:'contact'}]
+					ul.nav.footer__nav
+						for item in menu
+							li.nav__item 
+								a.nav__link.js-scrollTo(href=`#${item.link}`) #{item.name}
+					.footer__main-desc
+						.footer__main-about-me
+							p.footer__main-text Этот сайт я сделал в рамках обучения в Школе онлайн образования Loftschool
+							- let socNetItem = [{name:'insta',link:'#'},{name:'vk',link:'#'},{name:'github',link:'#'}]
+							ul.socNet.footer__socNet
+								for social in socNetItem
+									li.socNet__item
+										a.socNet__link.socNet__link--circle(href= social.link target='_blank') 
+											+icon(social.name, 'socNet__icon')
+						.footer__main-quote
+							p.footer__main-text Всегда пишите код так, будто сопровождать его будет склонный к насилию психопат, который знает где вы живете
+							p.footer__main-quote-autor Martin Golding				

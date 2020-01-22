@@ -13,18 +13,19 @@ html(lang="en")
 			.maincontent
 
 			.bg-train
-				.parallax.bg-train__parallax
-					//- +image('content/parallax1.png', 'parallax__img parallax__img-sky')
-					//- +image('content/parallax2.png', 'parallax__img parallax__img-train')
-					//- +image('content/parallax3.png', 'parallax__img parallax__img-ground')
-
-					
+				.bg-train__container
+					.parallax.bg-train__paralax
+						+image('content/parallax1.png', 'parallax__img parallax__img--sky')
+						+image('content/parallax2.png', 'parallax__img parallax__img--mountains')
+						+image('content/parallax3.png', 'parallax__img parallax__img--train')
+						+image('content/parallax4.png', 'parallax__img parallax__img--grass')
+						+image('content/parallax5.png', 'parallax__img parallax__img--gradient')
+					+image('content/parallax6.png', 'bg-matrix')
 				+hero()
 				+about()
-
 			+skills()
 			+works()
-
 			.bg-autumn
 				+reviews()
 				+contact()
+			+footer()

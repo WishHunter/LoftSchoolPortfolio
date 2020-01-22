@@ -21,7 +21,7 @@
 
 		&-name {
 			color: #fff;
-			line-height: 0.8;
+			line-height: 1;
 			font-weight: 800;
 			text-align: center;
 			font-size: 72px;
@@ -69,6 +69,10 @@
 		align-items: center;
 	}
 
+	&__nav {
+		padding-top: 45px;
+	}
+
 	&__logo {
 		font-size: 36px;
 		font-weight: 800;
@@ -86,7 +90,7 @@
 	&__link {
 		position: relative;
 		display: inline-block;
-		padding: 45px 30px;
+		padding: 0 30px 45px;
 		color: #fff;
 		line-height: 1.2;
 		text-decoration: none;
@@ -120,7 +124,7 @@
 	}
 
 	&__link {
-		display: inline-block;
+		display: block;
 		fill: #fff;
 		opacity: 0.3;
 		$transition: fill, opacity;
@@ -129,6 +133,20 @@
 		&:hover {
 			fill: $main-color;
 			opacity: 1;
+		}
+
+		&--circle {
+			display: flex;
+			padding: 15px;
+			border-radius: 100%;
+			border: 1px solid #fff;
+			line-height: 1;
+			$transition: fill, opacity, border;
+			@include transition($transition);
+
+			&:hover {
+				border-color: $main-color;
+			}
 		}
 	}
 
