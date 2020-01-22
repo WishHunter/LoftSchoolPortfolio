@@ -12,15 +12,13 @@
 			width: 100%;
 			top: 0;
 			right: calc(100% + 60px);
-			color: rgba(#fff, 0.4);
-			font-weight: 600;
+			opacity: .4;
 			line-height: 1.6;
 			text-align: right;
 			font-size: 18px;
 		}
 
 		&-name {
-			color: #fff;
 			line-height: 1;
 			font-weight: 800;
 			text-align: center;
@@ -50,108 +48,11 @@
 		&-text {
 			line-height: 1.6;
 			font-size: 18px;
-			font-weight: 600;
 		}
 		
 		&-icon {
 			margin-left: 15px;
 			height: 30px;
 		}
-	}
-}
-
-.header {
-	position: relative;
-
-	&__flex {
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-	}
-
-	&__nav {
-		padding-top: 45px;
-	}
-
-	&__logo {
-		font-size: 36px;
-		font-weight: 800;
-		color: #fff;
-		line-height: 1
-	}
-}
-
-.nav {
-
-	&__item {
-		display: inline-block;
-	}
-
-	&__link {
-		position: relative;
-		display: inline-block;
-		padding: 0 30px 45px;
-		color: #fff;
-		line-height: 1.2;
-		text-decoration: none;
-		$transition: text-shadow, color, border-bottom;
-		@include transition($transition);
-		
-		&:hover {
-			text-shadow: 0 0 .85px #fff, 0 0 .85px #fff;
-		}
-
-		&--active {
-			border-bottom: 3px solid $main-color;
-			color: $main-color;
-
-			&:hover {
-				text-shadow: none;
-			}
-		}
-	}
-}
-
-.socNet {
-	display: flex;
-
-	&__item {
-		margin: 0 20px;
-
-		&:last-of-type {
-			margin-right: 0;
-		}
-	}
-
-	&__link {
-		display: block;
-		fill: #fff;
-		opacity: 0.3;
-		$transition: fill, opacity;
-		@include transition($transition);
-
-		&:hover {
-			fill: $main-color;
-			opacity: 1;
-		}
-
-		&--circle {
-			display: flex;
-			padding: 15px;
-			border-radius: 100%;
-			border: 1px solid #fff;
-			line-height: 1;
-			$transition: fill, opacity, border;
-			@include transition($transition);
-
-			&:hover {
-				border-color: $main-color;
-			}
-		}
-	}
-
-	&__icon {
-		width: 25px;
-		height: 25px;
 	}
 }

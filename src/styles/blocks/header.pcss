@@ -1,0 +1,94 @@
+.header {
+	position: relative;
+
+	&__flex {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+
+	&__nav {
+		padding-top: 45px;
+	}
+
+	&__logo {
+		font-size: 36px;
+		font-weight: 800;
+		line-height: 1
+	}
+}
+
+.nav {
+
+	&__item {
+		display: inline-block;
+	}
+
+	&__link {
+		position: relative;
+		display: inline-block;
+		padding: 0 30px 45px;
+		line-height: 1.2;
+		font-weight: normal;
+		text-decoration: none;
+		$transition: text-shadow, color, border;
+		@include transition($transition);
+		
+		&:hover {
+			text-shadow: 0 0 .85px #fff, 0 0 .85px #fff;
+		}
+
+		&--active, &:focus {
+			border-bottom: 3px solid $main-color;
+			color: $main-color;
+
+			&:hover {
+				text-shadow: none;
+			}
+		}
+	}
+}
+
+.socNet {
+	display: flex;
+
+	&__item {
+		margin: 0 20px;
+
+		&:last-of-type {
+			margin-right: 0;
+		}
+	}
+
+	&__link {
+		display: block;
+		fill: #fff;
+		opacity: 0.3;
+		$transition: fill, opacity;
+		@include transition($transition);
+
+		&:hover, &:focus {
+			fill: $main-color;
+			opacity: 1;
+		}
+
+		&--circle {
+			display: flex;
+			padding: 15px;
+			border-radius: 100%;
+			border: 1px solid #fff;
+			line-height: 1;
+			$transition: fill, opacity, border;
+			@include transition($transition);
+
+			&:hover, &:focus {
+				border-color: $main-color;
+			}
+		}
+	}
+
+	&__icon {
+		width: 25px;
+		height: 25px;
+	}
+}

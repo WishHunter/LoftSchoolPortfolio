@@ -1,9 +1,9 @@
 .works {
 	padding: 200px 0;
+	color: $text-color;
 
 	&__title {
 		font-size: 36px;
-		color: $text-color;
 		font-weight: bold;
 		line-height: 1;
 	}
@@ -45,7 +45,7 @@
 				}
 			}
 
-			&:hover {
+			&:hover, &:focus {
 				background-color: $main-color;
 			}
 		}
@@ -80,7 +80,7 @@
 				@include transition($transition);
 			}
 
-			&:hover:after {
+			&:hover:after, &:focus:after {
 				z-index: 1;
 				background-color: rgba($main-color, .3);
 			}
@@ -111,21 +111,20 @@
 			background-color: rgba(#859ec2, .1);
 			border-radius: 22.5px;
 			font-size: 15px;
-			color: rgba($text-color, 0.702);
+			color: rgba($text-color, 0.7);
 			line-height: 1;
 		}
 
 		&-title {
 			margin-bottom: 44px;
 			font-size: 30px;
-			color: $text-color;
 			font-weight: bold;
 			line-height: 1.6;
 		}
 
 		&-desc {
 			margin-bottom: 44px;
-			color: rgba($text-color, 0.7);
+			opacity: .7;
 			line-height: 1.875;
 		}
 
