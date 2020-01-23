@@ -2,10 +2,11 @@ mixin footer()
 	footer.footer#footer
 		.container
 			.footer__container
-				p.footer__date © 2019
-				.footer__autor
-					.footer__autor-name Денис Мольков
-					.footer__autor-desc Личный сайт веб&nbsp;-&nbsp;разработчика
+				.footer__info
+					p.footer__date © 2019
+					.footer__autor
+						.footer__autor-name Денис Мольков
+						.footer__autor-desc Личный сайт веб&nbsp;-&nbsp;разработчика
 				.footer__main
 					+nav('footer')
 					.footer__main-desc
@@ -14,4 +15,4 @@ mixin footer()
 							+socNet('footer', 'socNet__link--circle')
 						.footer__main-quote
 							p.footer__main-text Всегда пишите код так, будто сопровождать его будет склонный к насилию психопат, который знает где вы живете
-							p.footer__main-quote-autor Martin Golding				
+							p.footer__main-quote-autor Martin Golding

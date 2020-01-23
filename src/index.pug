@@ -10,22 +10,27 @@ html(lang="ru")
 		title Portfolio | main page
 	body
 		.wrapper
-			.maincontent
-
 			.bg-train
 				.bg-train__container
 					.parallax.bg-train__paralax
-						+image('content/parallax1.png', 'parallax__img parallax__img--sky')
-						+image('content/parallax2.png', 'parallax__img parallax__img--mountains')
-						+image('content/parallax3.png', 'parallax__img parallax__img--train')
-						+image('content/parallax4.png', 'parallax__img parallax__img--grass')
-						+image('content/parallax5.png', 'parallax__img parallax__img--gradient')
-					+image('content/parallax6.png', 'bg-matrix')
+						+image('content/parallax1.png', 'parallax__img parallax__img--bg parallax__img--sky')
+						+image('content/parallax2.png', 'parallax__img parallax__img--bg parallax__img--mountains')
+						+image('content/parallax3.png', 'parallax__img parallax__img--bg parallax__img--train')
+						+image('content/parallax4.png', 'parallax__img parallax__img--bg parallax__img--grass')
+						+image('content/parallax5.png', 'parallax__img parallax__img--bg parallax__img--gradient')
+					picture 
+						source(srcset=require("images/content/matrix_1200.png") media="(max-width: 1800px)")
+						+image('content/matrix_1800.png', 'bg-matrix')
 				+hero()
 				+about()
 			+skills()
 			+works()
 			.bg-autumn
+				.paralax.bg-autumn__paralax
+					+image('content/sheet1.png', 'parallax__img parallax__img--sheet1')
+					+image('content/sheet2.png', 'parallax__img parallax__img--sheet2')
+					+image('content/sheet3.png', 'parallax__img parallax__img--sheet3')
+					+image('content/sheet4.png', 'parallax__img parallax__img--sheet4')
 				+reviews()
 				+contact()
 			+footer()

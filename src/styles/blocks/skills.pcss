@@ -11,13 +11,25 @@
 		max-height: 100%;
 		right: 100%;
 		top: 130px;
-		transform: translateX(100%);
+		transform: translateX(90%);
+
+		@include desktopHd() {
+			max-width: 490px;
+			top: auto;
+			bottom: -50px;
+		}
 	}
 
 	&__desc {
 		margin-left: 33.3%;
 		margin-right: 25%;
 		margin-bottom: 36px;
+
+		@include desktopHd() {
+			margin-left: 25%;
+			margin-right: 16.6%;
+		}
+
 		&-title {
 			margin-bottom: 60px;
 			font-weight: bold;
@@ -33,6 +45,10 @@
 
 	&__container {
 		margin-left: 41.6%;
+
+		@include desktopHd() {
+			margin-left: 33.3%;
+		}
 	}
 
 	&__line {
@@ -59,6 +75,10 @@
 	&__container {
 		position: relative;
 		margin-right: 70px;
+
+		@include desktopHd() {
+			margin-right: 50px;
+		}
 	}
 
 	&__circle {
