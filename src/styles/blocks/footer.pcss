@@ -1,7 +1,12 @@
 .footer {
 	padding: 85px 0;
 	background-color: $footer-color;
+	font-weight: normal;
 	
+	@include tablets {
+		padding: 60px 0;
+	}
+
 	&__container {
 		display: flex;
 		justify-content: space-between;
@@ -9,6 +14,10 @@
 
 		@include desktopHd() {
 			align-items: stretch;
+		}
+
+		@include tablets {
+			display: block;
 		}
 	}
 
@@ -21,6 +30,15 @@
 			flex-direction: column;
 			flex-basis: 16.6%;
 		}
+
+		@include desktop() {
+			flex-basis: 33.3%;
+			justify-content: flex-start;
+		}
+
+		@include tablets {
+			margin-bottom: 50px;
+		}
 	}
 
 	&__date {
@@ -28,10 +46,18 @@
 		opacity: .1;
 		line-height: 0.625;
 		font-weight: 600;
+
+		@include desktop() {
+			margin-bottom: 30px;
+		}
 	}
 
 	&__autor {
 		max-width: 140px;
+
+		@include tablets {
+			max-width: none;
+		}
 	}
 
 	&__autor-name {
@@ -40,6 +66,10 @@
 		text-transform: uppercase;
 		line-height: 1.667;
 		margin-bottom: 30px;
+
+		@include tablets {
+			margin-bottom: 0;
+		}
 	}
 
 	&__autor-desc {
@@ -54,6 +84,9 @@
 		@include desktopHd() {
 			flex-basis: 75%;
 		}
+		@include desktop() {
+			flex-basis: 66.6%;
+		}
 	}
 
 	&__nav {
@@ -63,10 +96,18 @@
 	&__main-desc {
 		display: flex;
 		justify-content: space-between;
+
+		@include desktop() {
+			display: block;	
+		}
 	}
 
 	&__main-about-me {
 		flex-basis: 350px;
+
+		@include desktop() {
+			margin-bottom: 60px;
+		}
 	}
 
 	&__main-text {
@@ -75,13 +116,8 @@
 		line-height: 1.875;
 	}
 
-	&__socNet {
-		margin: 0 -20px;
-	}
-
 	&__main-quote {
 		flex-basis: 475px;
-		// margin-left: 150px;
 	}
 
 	&__main-quote-autor {

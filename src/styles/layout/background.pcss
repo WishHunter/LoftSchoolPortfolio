@@ -10,11 +10,34 @@
 		height: 100%;
 		flex-direction: column;
 		justify-content: space-between;
+
+		@include desktop() {
+			background-image: url('../images/content/parallax_mob.png');
+			background-repeat: no-repeat;
+			background-size: cover;
+			background-position: top center;
+		}
+	}
+
+	&__paralax {
+		background-image: url('../images/content/matrix_1800.png');
+		background-size: 100% auto;
+		background-repeat: repeat;
+		background-position: center center;
+
+		@include desktop() {
+			background: none;
+		}
 	}
 }
 
 .bg-matrix {
 	width: 100%;
+	position: relative;
+
+	@include desktop() {
+			display: none;
+		}
 }
 
 .parallax {
@@ -26,8 +49,12 @@
 		position: absolute;
 
 		&--bg {
-			width: 100%;
+			width: auto;
 			left: 0;
+			
+			@include desktop() {
+				display: none;
+			}
 		}
 
 		&--sky {
@@ -35,24 +62,38 @@
 		}
 
 		&--mountains {
-			top: 20%;
+			top: 30vh;
 		}
 
 		&--train {
-			bottom: 40%;
+			top: 40vh;
 		}
 
 		&--grass {
-			bottom: 0;
+			top: 70vh;
 		}
 
 		&--gradient {
-			bottom: 0;
+			top: 80vh;
+		}
+
+		&--sheet {
+			@include desktop() {
+				transform: scale(.8);
+			}
+
+			@include tablets {
+				display: none;
+			}
 		}
 
 		&--sheet1 {
 			right: -100px;
 			top: -160px;
+
+			@include desktop() {
+				right: -300px;
+			}
 		}
 
 		&--sheet2 {
@@ -62,19 +103,35 @@
 			@include desktopHd() {
 				right: 65px;
 			}
+
+			@include desktop() {
+				right: -100px;
+				bottom: 100px;
+			}
 		}
 
 		&--sheet3 {
 			right: 350px;
 			top: 450px;
+
+			@include desktop() {
+				right: 100px;
+				top: 350px;	
+			}
 		}
 
 		&--sheet4 {
 			right: 180px;
 			top: 700px;
+
+			@include desktop() {
+				right: -50px;
+				top: 600px;
+			}
 		}
 	}
 }
+
 
 .bg-autumn {
 	position: relative;

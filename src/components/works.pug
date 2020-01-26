@@ -8,11 +8,11 @@ mixin works()
 					.works__slider-nav
 						button.works__slider-nav-prev.js-disabled
 						.works__slider-nav-dots
-							button.works__slider-nav-dot-link.js-active(data-slide="slide1")
+							button.works__slider-nav-dot-link.js-visible.js-active(data-slide="slide1")
 								+image('content/work1.jpg', 'works__slider-nav-dot')
-							button.works__slider-nav-dot-link(data-slide="slide2")
+							button.works__slider-nav-dot-link.js-visible(data-slide="slide2")
 								+image('content/work2.jpg', 'works__slider-nav-dot')
-							button.works__slider-nav-dot-link(data-slide="slide3")
+							button.works__slider-nav-dot-link.js-visible(data-slide="slide3")
 								+image('content/work3.jpg', 'works__slider-nav-dot')
 							button.works__slider-nav-dot-link(data-slide="slide4")
 								+image('content/work4.jpg', 'works__slider-nav-dot')

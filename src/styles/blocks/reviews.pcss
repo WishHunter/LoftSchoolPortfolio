@@ -2,28 +2,61 @@
 	position: relative;
 	padding: 150px 0 100px;	
 
+	@include desktop() {
+		padding: 130px 0 60px;
+	}
+
+	@include tablets {
+		padding: 100px 0 60px;
+	}
+
 	&__container {
 		width: 66.6%;
 
 		@include desktopHd() {
 			width: 83.3%;
 		}
+
+		@include desktop() {
+			width: 100%;
+		}
 	}
 
 	&__header {
 		display: flex;
 		margin-bottom: 100px;
+
+		@include desktop() {
+			margin-bottom: 60px;
+		}
+
+		@include tablets {
+			display: block;
+		}
 	}
 
 	&__title {
 		font-weight: bold;
 		line-height: 1;
 		font-size: 36px;
+
+		@include tablets {
+			margin-bottom: 25px;
+		}
 	}
 
 	&__arrows {
 		margin-left: 105px;
 		display: flex;
+
+		@include desktop() {
+			margin-left: 30px;
+		}
+
+		@include tablets {
+			margin-left: 0;
+			justify-content: center;
+		}
 	}
 
 	&__arrow {
@@ -45,18 +78,35 @@
 		&:hover, &:focus {
 			background-color: $main-color;
 		}
+
+		&:disabled {
+			cursor: default;
+			background-color: transparent;
+			background-image: svg-load('arrow-down.svg', fill=rgba(#fff, .4), width=8px, height=10px);
+		}
+
+		@include desktop() {
+			border-color: #fff;
+
+			&:disabled {
+				border-color: rgba(#fff, .4);
+			}
+		}
 	}
 }
 
 .slider {
-	display: flex;
+	width: 980px;
+
+	@include desktop() {
+		width: 100%;
+	}
 
 	&__slide {
-		flex-basis: 50%;
-		margin-right: 80px;
+		width: 50%;
 
-		&:last-of-type {
-			margin: 0;
+		@include tablets() {
+			width: 100%;
 		}
 	}
 }
@@ -65,9 +115,18 @@
 	position: relative;
 	display: flex;
 	padding-left: 95px;
+	padding-right: 85px;
 	flex-direction: column;
 	justify-content: space-between;
 	
+	@include desktop() {
+		padding-left: 40px;
+	}
+
+	@include tablets {
+		padding-left: 0;
+	}
+
 	&:before {
 		content: '';
 		position: absolute;
@@ -78,6 +137,16 @@
 		top: 0;
 		background-image: svg-load('quote.svg', fill=#fff, width=75px, height=63px);
 		opacity: .05;
+
+		@include desktop() {
+			width: 30px;
+			height: 26px;
+			background-image: svg-load('quote.svg', fill=#fff, width=30px, height=26px);
+		}
+
+		@include tablets {
+			left: -35px;
+		}
 	}
 
 	&__text {
@@ -88,13 +157,14 @@
 
 	&__autor {
 		display: flex;
+		justify-content: space-between;
 	}
 
 	&__autor-photo {
 		border-radius: 100%;
 		width: 75px;
+		height: 75px;
 		overflow: hidden;
-		margin-right: 30px;
 	}
 
 	&__autor-text {

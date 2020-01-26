@@ -1,11 +1,20 @@
 .contact {
 	padding: 100px 0 150px;
 
+	@include desktop() {
+		padding: 60px 0 100px;
+	}
+
 	&__title {
 		margin-bottom: 100px;
 		font-size: 36px;
 		font-weight: bold;
 		line-height: 1.333;
+
+		@include desktop() {
+			text-align: center;
+			margin-bottom: 60px;
+		}
 	}
 
 	&__form {
@@ -13,6 +22,10 @@
 
 		@include desktopHd() {
 			max-width: 83.3%;
+		}
+
+		@include desktop() {
+			max-width: 100%;
 		}
 	}
 }
@@ -22,14 +35,32 @@
 	flex-wrap: wrap;
 	justify-content: space-between;
 
+	@include desktop() {
+		justify-content: center;
+	}
+
 	&__label {
 		position: relative;
 		display: block;
 		width: 100%;
 		margin-bottom: 66px;
 
+		@include desktop() {
+			margin-bottom: 56px;
+		}
+
 		&--col50 {
 			flex-basis: 45%;
+
+			@include desktop() {
+				&:nth-of-type(1) {
+					margin-right: auto;
+				}
+			}
+
+			@include tablets {
+				flex-basis: 100%;
+			}
 		}
 	}
 

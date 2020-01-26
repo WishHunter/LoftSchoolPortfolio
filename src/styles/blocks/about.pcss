@@ -1,22 +1,63 @@
 .about {
 	position: relative;
-	padding: 80px 0 200px;
+	padding: 80px 0 290px;
+
+	@include desktopHd() {
+		display: flex;
+		padding: 0;
+		min-height: 100vh;
+		align-items: center;
+	}
+
+	@include tablets() {
+		padding: 20px 0 100px;
+		min-height: 0;
+	}
 	
 	&__flex {
 		display: flex;
 		justify-content: center;
 		align-items: flex-start;
+
+		@include tablets() {
+			display: block;
+		}
 	}
 
 	&__info-block {
-		min-width: 280px;
-		max-width: 280px;
+		max-width: 25%;
+		flex-basis: 25%;
+
+		@include desktopHd() {
+			max-width: 33.3%;
+			flex-basis: 33.3%;
+		}
+
+		@include tablets() {
+			max-width: none;
+		}
 	}
 
 	&__text-block {
 		margin-left: 150px;
-		min-width: 545px;
-		max-width: 545px;
+		max-width: 41.6%;
+		flex-basis: 41.6%;
+
+		@include desktopHd {
+			max-width: 50%;
+			flex-basis: 50%;
+		}
+
+		@include desktop {
+			margin-left: auto;
+			max-width: 60%;
+			flex-basis: 60%;
+		}
+
+		@include tablets() {
+			max-width: none;
+			margin-top: 50px;
+		}
 	}
 
 	&__photo {
@@ -29,6 +70,16 @@
 		background-size: cover;
 		background-position: center center;
 		background-repeat: no-repeat;
+
+		@include desktop {
+			margin-left: 0;
+			width: 180px;
+			height: 180px;
+		}
+
+		@include tablets() {
+			margin: 0 auto 20px;
+		}
 	}
 
 	&__info-table {
@@ -50,10 +101,18 @@
 			opacity: .15;
 			line-height: 1.2;
 		}
+
+		@include desktop {
+			padding-bottom: 15px;
+		}
 	}
 
 	&__info {
 		margin-bottom: 100px;
+
+		@include desktop {
+			margin-bottom: 30px;
+		}
 	}
 
 	&__text {
@@ -66,6 +125,10 @@
 		font-weight: bold;
 		line-height: 1;
 		font-size: 36px;	
+
+		@include desktop {
+			margin: 20px 0 50px;
+		}
 	}
 
 	&__note {
@@ -81,11 +144,16 @@
 			font-style: italic;
 			line-height: 1;
 			font-size: 48px;
+
+			@include tablets() {
+				right: calc(100% + 4px);
+			}
 		}
 
 		&-text {
 			opacity: .5;
 			font-style: italic;
+			font-weight: normal;
 			line-height: 1.875;
 		}
 	}

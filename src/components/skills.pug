@@ -5,27 +5,32 @@ mixin skills()
 			.skills__desc
 				h2.skills__desc-title Чем я могу быть полезен вам
 				p.skills__desc-text Этот сайт я сделал в рамках обучения в Школе онлайн образования LoftSchool. Чуть позже я освежу в нём свой контент. А пока посмотрите, как тут всё классно и красиво!
-			.skills__container
-				.skills__line
-					h3.skills__title Front-End
-					.skills__flex
-						-var skillsFront = [{'name':'HTML5 и CSS3','level':75},{'name':'SVG','level':40},{'name':'Javascript','level':55},{'name':'Vue.js','level':10}]
-						+skill(skillsFront)
-				.skills__line
-					h3.skills__title Workflow
-					.skills__flex
-						-var skillsWorkflow = [{'name':'GIT','level':60},{'name':'Terminal','level':30},{'name':'Gulp','level':75},{'name':'Webpack','level':20}]
-						+skill(skillsWorkflow)
+			
+			#skills-component
 
-mixin skill(list)
 
-	-var radius = 60
-	-var circumference = 2 * radius * 3.14
+script(type="text/x-template")#skills-container
+	.skills__container
+		skillsList(
+			v-for="skillList in skills" 
+			:key="skillList.name" 
+			:skillList="skillList"
+		)
+		
 
-	for skill in list
-		-var level = circumference/100*skill.level
-		.skill__container
-			svg.skill.skills__skill(viewBox="0 0 130 130")
-				circle.skill__circle(cx="65" cy="65" r=radius)
-				circle.skill__level(cx="65" cy="65" r=radius stroke-dasharray=`${level} ${circumference-level}` stroke-dashoffset=`${circumference/2}`)
-			span.skill__name #{skill.name}
+script(type="text/x-template")#skills-list
+	.skills__line
+		h3.skills__title {{ skillList.name }}
+		.skills__flex
+			skill(
+				v-for="(skillPercent, skillName) in skillList.skills"
+				:skillName="skillName"
+				:skillPercent="skillPercent"
+			)
+
+script(type="text/x-template")#skill
+	.skill__container
+		svg.skill.skills__skill(viewBox="0 0 130 130")
+			circle.skill__circle(cx="65" cy="65" r="60")
+			circle.skill__level(ref="color-circle" cx="65" cy="65" r="60" stroke-dasharray='188.4' stroke-dashoffset="188.4")
+		span.skill__name {{ skillName }}

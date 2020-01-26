@@ -8,11 +8,13 @@ mixin footer()
 						.footer__autor-name Денис Мольков
 						.footer__autor-desc Личный сайт веб&nbsp;-&nbsp;разработчика
 				.footer__main
-					+nav('footer')
+					.footer__nav
+						+nav('nav--footer')
 					.footer__main-desc
 						.footer__main-about-me
 							p.footer__main-text Этот сайт я сделал в рамках обучения в Школе онлайн образования Loftschool
-							+socNet('footer', 'socNet__link--circle')
+							.footer__socNet
+								+socNet('socNet__link--circle')
 						.footer__main-quote
 							p.footer__main-text Всегда пишите код так, будто сопровождать его будет склонный к насилию психопат, который знает где вы живете
 							p.footer__main-quote-autor Martin Golding

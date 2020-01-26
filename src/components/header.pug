@@ -1,13 +1,14 @@
-mixin nav(className)
+mixin nav(mod='')
 	- let menu = [{name:'Главная',link:'hero'},{name:'Обо мне',link:'about'},{name:'Навыки',link:'skills'},{name:'Работы',link:'works'},{name:'Отзывы',link:'reviews'},{name:'Связаться',link:'contact'}]
-	ul(class=`nav ${className}__nav`)
+	ul(class=`nav ${mod}`)
+		li.
 		for item in menu
 			li.nav__item 
 				a.nav__link.js-scrollTo(href=`#${item.link}`) #{item.name}
 
-mixin socNet(className, mod='')
+mixin socNet(mod='')
 	- let socNet = [{name:'insta',link:'https://www.instagram.com/wisheshunter/'},{name:'vk',link:'https://vk.com/wisheshunter'},{name:'github',link:'https://github.com/WishHunter'}]
-	ul(class=`socNet ${className}__socNet`)
+	ul(class=`socNet`)
 		for social in socNet
 			li.socNet__item
 				a(class=`socNet__link ${mod}` href= social.link target='_blank') 
@@ -18,6 +19,14 @@ mixin header(className, logo, socNet)
 		.container
 			.header__flex
 				p.header__logo ДМ
-				+nav('header')
-				+socNet('header')
-				
+				.header__nav
+					+nav()
+					.header__nav-socNet.mobile-only
+						+socNet('socNet__link--dark')
+				.header__socNet
+					+socNet()
+				.header__burget-menu.mobile-only
+					button.burget-menu(type='button')
+						span.burget-menu__line.burget-menu__line1
+						span.burget-menu__line.burget-menu__line2
+						span.burget-menu__line.burget-menu__line3

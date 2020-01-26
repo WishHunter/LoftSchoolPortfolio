@@ -6,6 +6,15 @@
 	background-repeat: no-repeat;
 	background-position: center center;
 
+	@include desktop {
+		padding: 120px 0 350px;
+		overflow: hidden;
+	}
+
+	@include tablets {
+		padding: 100px 0 260px;
+	}
+
 	&__hands {
 		position: absolute;
 		max-height: 100%;
@@ -17,6 +26,18 @@
 			max-width: 490px;
 			top: auto;
 			bottom: -50px;
+		}
+
+		@include desktop() {
+			max-width: 330px;
+			bottom: -76px;
+			right: 50%;
+			transform-origin: center center;
+			transform: translateX(50%) rotate(-90deg);
+		}
+
+		@include tablets {
+			max-height: 100vw;
 		}
 	}
 
@@ -30,11 +51,25 @@
 			margin-right: 16.6%;
 		}
 
+		@include desktop() {
+			margin: 0 16.6%;
+			text-align: center;
+		}
+
+		@include tablets {
+			margin: 0;
+			text-align: left;
+		}
+
 		&-title {
 			margin-bottom: 60px;
 			font-weight: bold;
 			line-height: 1.2;
 			font-size: 30px;
+
+			@include desktop() {
+				margin-bottom: 30px;
+			}
 		}
 
 		&-text {
@@ -49,6 +84,10 @@
 		@include desktopHd() {
 			margin-left: 33.3%;
 		}
+
+		@include desktop() {
+			margin: 0;
+		}
 	}
 
 	&__line {
@@ -59,12 +98,20 @@
 		font-weight: bold;
 		line-height: 1;
 		font-size: 24px;
+
+		@include desktop() {
+			text-align: center;
+		}
 	}
 
 	&__flex {
 		display: flex;
-		margin-top: 50px;
 		flex-wrap: wrap;
+		
+
+		@include desktop() {
+			justify-content: center;
+		}
 	}
 }
 
@@ -75,9 +122,31 @@
 	&__container {
 		position: relative;
 		margin-right: 70px;
+		margin-top: 50px;
+
+		&:nth-of-type(4n) {
+			margin-right: 0;
+		}
 
 		@include desktopHd() {
 			margin-right: 50px;
+		}
+
+		@include desktop() {
+			margin-right: 35px;
+			margin-top: 30px;
+
+			&:nth-of-type(4n) {
+				margin-right: 35px;
+			}
+		}
+
+		@include tablets {
+			margin-left: 15px;
+			margin-right: 15px;
+			&:nth-of-type(4n) {
+				margin-right: 15px;
+			}
 		}
 	}
 
