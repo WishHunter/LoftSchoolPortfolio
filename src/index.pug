@@ -12,25 +12,36 @@ html(lang="ru")
 		.wrapper
 			.bg-train
 				.bg-train__container
-					.parallax.bg-train__paralax
-						+image('content/parallax1.png', 'parallax__img parallax__img--bg parallax__img--sky')
-						+image('content/parallax2.png', 'parallax__img parallax__img--bg parallax__img--mountains')
-						+image('content/parallax3.png', 'parallax__img parallax__img--bg parallax__img--train')
-						+image('content/parallax4.png', 'parallax__img parallax__img--bg parallax__img--grass')
-						+image('content/parallax5.png', 'parallax__img parallax__img--bg parallax__img--gradient')
-					//- picture 
-						//- source(srcset=require("images/content/matrix_1200.png") media="(max-height: 650px)")
-						//- +image('content/matrix_1800.png', 'bg-matrix')
+					.bg-train__parallax
+						.bg-train__layer(data-speed=0)
+							+image('content/parallax1.png', 'parallax__img parallax__img--bg parallax__img--sky')
+						.bg-train__layer(data-speed=.1)
+							+image('content/parallax2.png', 'parallax__img parallax__img--bg parallax__img--mountains')
+						.bg-train__layer(data-speed=.2)
+							+image('content/parallax3.png', 'parallax__img parallax__img--bg parallax__img--train')
+						.bg-train__layer(data-speed=.3)
+							+image('content/parallax4.png', 'parallax__img parallax__img--bg parallax__img--grass')
+						.bg-train__layer(data-speed=.1)
+							+image('content/parallax5.png', 'parallax__img parallax__img--bg parallax__img--gradient')
+						.bg-train__layer(data-speed=.1)
+							+image('content/parallax5.png', 'parallax__img parallax__img--bg parallax__img--gradient2')
+						.bg-train__layer(data-speed=.1)
+							+image('content/matrix_1800.png', 'parallax__img parallax__img--bg parallax__img--matrix')
+						
 				+hero()
 				+about()
 			+skills()
 			+works()
 			.bg-autumn
-				.paralax.bg-autumn__paralax
-					+image('content/sheet1.png', 'parallax__img parallax__img--sheet parallax__img--sheet1')
-					+image('content/sheet2.png', 'parallax__img parallax__img--sheet parallax__img--sheet2')
-					+image('content/sheet3.png', 'parallax__img parallax__img--sheet parallax__img--sheet3')
-					+image('content/sheet4.png', 'parallax__img parallax__img--sheet parallax__img--sheet4')
+				.bg-autumn__paralax
+					.bg-autumn__layer(data-speed=.05)
+						+image('content/sheet1.png', 'parallax__img parallax__img--sheet parallax__img--sheet1')
+					.bg-autumn__layer(data-speed=.1)
+						+image('content/sheet2.png', 'parallax__img parallax__img--sheet parallax__img--sheet2')
+					.bg-autumn__layer(data-speed=.3)
+						+image('content/sheet3.png', 'parallax__img parallax__img--sheet parallax__img--sheet3')
+					.bg-autumn__layer(data-speed=.25)
+						+image('content/sheet4.png', 'parallax__img parallax__img--sheet parallax__img--sheet4')
 				+reviews()
 				+contact()
 			+footer()

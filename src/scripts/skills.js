@@ -43,7 +43,6 @@ new Vue({
 	},
 	created() {
 		this.skills = require('../json/skills.json');
-		console.log(this.skills[0].name);
 	}
 });
 

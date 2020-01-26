@@ -19,15 +19,13 @@
 		}
 	}
 
-	&__paralax {
-		background-image: url('../images/content/matrix_1800.png');
-		background-size: 100% auto;
-		background-repeat: repeat;
-		background-position: center center;
-
-		@include desktop() {
-			background: none;
-		}
+	&__layer {
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 100%;
+		height: 100%;
+		will-change: transform;
 	}
 }
 
@@ -47,34 +45,45 @@
 
 	&__img {
 		position: absolute;
+		
 
 		&--bg {
-			width: auto;
-			left: 0;
+			max-width: 180%;
+			min-width: 100%;
+			left: 50%;
+			transform: translateX(-50%);
 			
 			@include desktop() {
 				display: none;
 			}
 		}
 
-		&--sky {
-			top: 0;
+		&--matrix {
+			bottom: -350px;
 		}
 
-		&--mountains {
-			top: 30vh;
-		}
-
-		&--train {
-			top: 40vh;
-		}
-
-		&--grass {
-			top: 70vh;
+		&--gradient2 {
+			bottom: -400px;
 		}
 
 		&--gradient {
-			top: 80vh;
+			bottom: -50px;
+		}
+
+		&--grass {
+			bottom: -40vh;
+		}
+
+		&--train {
+			bottom: 50vh;
+		}
+
+		&--mountains {
+			bottom: 70vh;
+		}
+
+		&--sky {
+			top: 0;
 		}
 
 		&--sheet {
@@ -140,7 +149,7 @@
 	background-repeat: no-repeat;
 	background-position: center center;
 
-	&__paralax {
+	&__paralax, &__layer {
 		position: absolute;
 		width: 100%;
 		height: 100%;

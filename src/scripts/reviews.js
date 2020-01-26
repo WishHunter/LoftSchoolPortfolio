@@ -35,7 +35,6 @@ new Vue({
 			return data.map(item => {
 				const requireImage = require(`../images/content/${item.avatar}`);
 				item.avatar = requireImage;
-				console.log(item)
 				return item;
 			})
 		},
@@ -62,6 +61,5 @@ new Vue({
   created() {
     const data = require("../json/reviews.json");
 		this.reviews = this.makeRequiredImages(data);
-		console.log(this.reviews)
   }
 });
