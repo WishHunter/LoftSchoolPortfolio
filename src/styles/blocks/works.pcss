@@ -50,7 +50,7 @@
 			}
 
 			&:before {
-				content: '2';
+				content: attr(data-slide);
 				position: absolute;
 				display: inline-block;
 				bottom: 174px;
@@ -110,7 +110,7 @@
 				right: 0;
 			}
 
-			&.js-disabled {
+			&:disabled {
 				cursor: default;
 				background-image: svg-load('arrow-down.svg', fill=rgba(#fff, .3), width=8px, height=10px);
 
@@ -143,12 +143,7 @@
 
 		&-nav-dot-link {
 			position: relative;
-			display: none;
 			height: 100px;
-
-			&.js-visible {
-				display: block;
-			}
 
 			&:after {
 				content: '';
@@ -158,17 +153,18 @@
 				height: 100%;
 				top: 0;
 				left: 0;
+				box-sizing: border-box;
 				$transition: width, border;
 				@include transition($transition);
 			}
 
 			&:hover:after, &:focus:after {
-				z-index: 1;
+				z-index: 2;
 				background-color: rgba($main-color, .3);
 			}
 
-			&.js-active:after {
-				z-index: 1;
+			&.active:after {
+				z-index: 2;
 				border: 3px solid $main-color;
 			}
 		}
