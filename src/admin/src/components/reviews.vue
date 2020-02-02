@@ -33,11 +33,24 @@ export default {
   .section-content {
     margin-top: 60px;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: minmax(0%, 1fr) minmax(0%, 1fr) minmax(0%, 1fr);
     grid-gap: 32px;
+    @media (max-width:1199px) {
+      grid-template-columns: minmax(0%, 1fr) minmax(0%, 1fr);
+    }
+    @media (max-width: 767px) {
+      grid-template-columns: minmax(0%, 1fr);
+      grid-gap: 10px;
+    }
   }
   .fullBlock {
     grid-column: 1/4;
+    @media (max-width:1199px) {
+      grid-column: 1/3;
+    }
+    @media (max-width: 767px) {
+      grid-column: 1/2;
+    }
   }
   .addReview {
     display: flex;
@@ -50,6 +63,10 @@ export default {
     width: 100%;
     height: 100%;
     background-image: linear-gradient(90deg, rgb(0,106,237) 0%, rgb(32,80,220) 48%, rgb(63,53,203) 100%);
+    @media (max-width: 767px) {
+      flex-direction: row;
+      padding: 30px 20px;
+    }
   }
   .icon-plus {
     width: 150px;
@@ -64,6 +81,12 @@ export default {
     flex-direction: column;
     color: #fff;
     margin-bottom: 30px;
+    @media (max-width: 767px) {
+      width: 50px;
+      height: 50px;
+      font-size: 24px;
+      margin: 0 20px 0 0;
+    }
   }
   .text {
     font-size: 18px;
@@ -72,5 +95,8 @@ export default {
     line-height: 1.667;
     text-align: center;
     width: 150px;
+    @media (max-width: 767px) {
+      width: auto;
+    }
   }
 </style>

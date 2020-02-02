@@ -34,6 +34,9 @@ export default {
   padding: 30px;
   color: #414c63;
   transition: color .2s ease-out;
+  @media (max-width: 767px) {
+    padding: 30px 20px;
+  }
   &:after {
     content: '';
     position: absolute;

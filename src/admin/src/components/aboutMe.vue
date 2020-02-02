@@ -28,6 +28,9 @@ export default {
 <style lang="postcss" scoped>
   .header {
     display: flex;
+    @media (max-width: 767px) {
+      flex-direction: column;
+    }
   }
   .addGroup {
     display: flex;
@@ -36,7 +39,9 @@ export default {
     color: #383bcf;
     cursor: pointer;
     margin-left: 60px;
-
+    @media (max-width: 767px) {
+      margin-left: 0;
+    }
   }
   .addGroup__icon {
     font-size: 15px;
@@ -47,7 +52,11 @@ export default {
 
   .section-content {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: minmax(0%, 1fr) minmax(0%, 1fr);
     grid-gap: 32px;
+
+    @media (max-width: 767px) {
+      grid-template-columns: minmax(0%, 1fr);
+    }
   }
 </style>

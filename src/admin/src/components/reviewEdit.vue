@@ -61,12 +61,16 @@ export default {
     font-size: 18px;
     font-weight: 600;
     margin-right: auto;
-    flex-basis: 60%;
+    flex-basis: 100%;
   }
   .body {
     display: flex;
     align-items: flex-start;
     padding: 30px 0 15px;
+    @media (max-width: 767px) {
+      flex-direction: column;
+      align-items: center;
+    }
   }
   .img-block {
     position: relative;
@@ -104,19 +108,32 @@ export default {
   .information {
     flex-grow: 1;
     display: flex;
-    flex-wrap: wrap
-
+    flex-wrap: wrap;
+    @media (max-width: 767px) {
+      margin-top: 30px;
+    }
   }
   .label {
     max-width: 50%;
     flex-basis: 50%;
     margin-bottom: 30px;
     padding-right: 30px;
+    @media (max-width:1199px) {
+      max-width: 100%;
+      flex-basis: 100%;
+      padding-right: 60px;
+    }
+    @media (max-width: 767px) {
+      padding-right: 0;
+    }
   }
   .fullLabel {
     max-width: 100%;
     flex-basis: 100%;
     padding-right: 30px;
+    @media (max-width: 767px) {
+      padding-right: 0;
+    }
   }
   .input-name {
     font-weight: 600;
@@ -138,9 +155,11 @@ export default {
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    width: 70%;
-    margin-left: auto;
+    width: 100%;
     margin-right: 30px;
+    @media (max-width: 767px) {
+      margin-right: 0;
+    }
   }
   .btn-cancel {
     padding: 0;

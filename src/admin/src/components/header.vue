@@ -52,6 +52,9 @@ export default {
 		font-size: 14px;
 		opacity: .5;
 		margin-left: 28px;
+    @media (max-width: 767px) {
+      display: none;
+    }
 	}
 	.link_exit {
 		position: relative;

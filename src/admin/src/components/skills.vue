@@ -87,8 +87,8 @@ export default {
   }
   .skill__percent {
     position: relative;
-    min-width: 75px;
-    max-width: 75px;
+    min-width: 65px;
+    max-width: 65px;
     margin: 0 20px;
     padding: 5px 30px 5px 5px;
     &:after {
@@ -107,6 +107,9 @@ export default {
   }
   .skill__btn {
     margin-left: 20px;
+    @media (max-width:1199px) {
+      margin-left: 10px;
+    }
   }
   .btn-icon {
     opacity: .5;
@@ -123,6 +126,9 @@ export default {
     justify-content: flex-end;
     width: 70%;
     margin-left: auto;
+    @media (max-width:1199px) {
+      width: 100%;
+    }
   }
   .addGroup__icon {
     width: 40px;

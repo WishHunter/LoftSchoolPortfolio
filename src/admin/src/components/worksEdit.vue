@@ -64,11 +64,18 @@
     font-weight: 600;
     margin-right: auto;
     flex-basis: 60%;
+    @media (max-width: 767px) {
+      flex-basis: 100%;
+    }
   }
   .body {
     display: flex;
     align-items: flex-start;
     padding: 30px 0;
+    @media (max-width:1199px) {
+      flex-direction: column;
+      align-items: center;
+    }
   }
   .img-block {
     position: relative;
@@ -77,6 +84,17 @@
     max-width: 50%;
     flex-basis: 50%;
     margin-right: 30px;
+    @media (max-width:1199px) {
+      min-width: 70%;
+      max-width: 70%;
+      flex-basis: 70%;
+      margin-right: 0;
+    }
+    @media (max-width: 767px) {
+      min-width: 100%;
+      max-width: 100%;
+      flex-basis: 100%;
+    }
   }
   .img-loading {
     position: absolute;
@@ -110,6 +128,18 @@
     flex-basis: 50%;
     display: flex;
     flex-direction: column;
+    @media (max-width:1199px) {
+      min-width: 80%;
+      max-width: 80%;
+      flex-basis: 80%;
+      margin-top: 50px;
+    }
+    @media (max-width: 767px) {
+      min-width: 100%;
+      max-width: 100%;
+      flex-basis: 100%;
+      margin-top: 30px;
+    }
   }
   .label {
     width: 100%;
@@ -132,6 +162,7 @@
   }
   .tegs {
     display: flex;
+    flex-wrap: wrap;
     margin: 0 -5px;
   }
   .teg {
@@ -162,8 +193,10 @@
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    width: 70%;
-    margin-left: auto;
+    width: 100%;
+    @media (max-width:1199px) {
+      justify-content: center;
+    }
   }
   .btn-cancel {
     padding: 0;

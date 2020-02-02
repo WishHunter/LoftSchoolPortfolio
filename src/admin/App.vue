@@ -50,10 +50,25 @@ export default {
     box-sizing: border-box;
   }
 
+  html {
+    @media (max-width: 767px) {
+      font-size: 14px;
+    }
+  }
+
   .container {
     max-width: 1120px;
     padding: 0 20px;
     margin: 0 auto;
+
+    @media (max-width:1199px) {
+      max-width: 740px;
+      padding: 0 15px;
+    }
+    @media (max-width: 767px) {
+      max-width: 100%;
+      padding: 0 10px;
+    }
   }
   body {
     font-family: 'Open Sans', Helvetica, sans-serif;
@@ -75,7 +90,7 @@ export default {
     border: none;
     border-bottom: 1px solid #000;
     background: none;
-    max-width: 100%;
+    width: 100%;
     font-weight: 600;
     &:focus {
       outline: none;
@@ -90,6 +105,9 @@ export default {
   }
   .section {
     padding: 60px 0;
+    @media (max-width: 767px) {
+      padding: 30px 0;
+    }
   }
   .section-title {
     font-size: 21px;
