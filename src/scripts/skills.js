@@ -10,9 +10,8 @@ const skill = {
 		drawCirclePercent() {
 			const circle = this.$refs["color-circle"];
 			const levelPercent = 376.8 / 100 * (+this.skillPercent);
-			const dasharray = `${levelPercent} ${376.8 - levelPercent}`;
 
-			circle.style.strokeDasharray = dasharray;
+			circle.style.strokeDasharray = `${levelPercent} ${376.8 - levelPercent}`;
 		}
 	},
 	mounted() {
@@ -45,4 +44,3 @@ new Vue({
 		this.skills = require('../json/skills.json');
 	}
 });
-

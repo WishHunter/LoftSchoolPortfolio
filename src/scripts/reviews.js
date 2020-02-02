@@ -33,8 +33,7 @@ new Vue({
 
 		makeRequiredImages(data) {
 			return data.map(item => {
-				const requireImage = require(`../images/content/${item.avatar}`);
-				item.avatar = requireImage;
+				item.avatar = require(`../images/content/${item.avatar}`);
 				return item;
 			})
 		},
@@ -51,7 +50,7 @@ new Vue({
 			if (this.$refs.flickity.selectedIndex() === this.$refs.flickity.slides().length - 1) {
 				next.disabled = true;
 				return;
-			}; 
+			};
 
 			prev.disabled = false;
 			next.disabled = false;
