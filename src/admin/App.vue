@@ -1,5 +1,6 @@
 <template lang="pug">
   .content
+    Login
     Header(
       :name='userName'
       :photo='userPhoto'
@@ -12,6 +13,7 @@
 </template>
 
 <script>
+  import Login from './src/components/login'
   import Header from './src/components/header'
   import Navigation from './src/components/navigation'
   import AboutMe from './src/components/aboutMe'
@@ -26,6 +28,7 @@ export default {
     }
   },
   components: {
+    Login,
     Header,
     Navigation,
     AboutMe,
