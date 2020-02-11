@@ -1,14 +1,14 @@
 <template lang="pug">
   .login__bg
-    form.login
+    form.login(@submit.prevent="login")
       h1.login__title Авторизация
       label.login__label
-        input.login__input(name="name" type="text" @change="inputDesc")
+        input.login__input(name="name" type="text" @change="inputDesc" v-model="user.name")
         span.login__desc Логин
         svg.login__icon(width="26" height="30")
           use(xlink:href='sprite.svg#user')
       label.login__label
-        input.login__input(name="password" type="password" @change="inputDesc")
+        input.login__input(name="password" type="password" @change="inputDesc" v-model="user.password")
         span.login__desc Пароль
         svg.login__icon(width="27" height="28")
           use(xlink:href='sprite.svg#key')
@@ -17,14 +17,41 @@
 </template>
 
 <script>
+import $axios from '../../requests';
+
 export default {
+  data() {
+    return {
+      user: {
+        name: '',
+        password: ''
+      }
+    }
+  },
   methods: {
+
     inputDesc(elem) {
       if (elem.target.value !== '') {
         elem.target.classList.add('has-value');
         return;
       }
       elem.target.classList.remove('has-value');
+    },
+
+    async login() {
+      try {
+
+        const responce = await $axios.post('/login', this.user);
+        const token = responce.data.token;
+
+        localStorage.setItem('token', token);
+        $axios.defaults.headers['Authorization'] = `Bearer ${token}`
+
+        this.$router.replace('/');
+
+      } catch (error) {
+        console.log(error);
+      }
     }
   }
 }
@@ -45,8 +72,21 @@ export default {
       top: 0;
       width: 100%;
       height: 100vh;
-      background-color: rgba(#2d3c4e, .95);
+      background-image: url('../../../images/content/autumn-bg.jpg');
+      background-position: center center;
+      background-repeat: no-repeat;
+      background-size: cover;
       z-index: 20;
+
+      &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background-color: rgba(#2d3c4e, .95);
+      }
     }
 
     &__title {

@@ -32,7 +32,7 @@ export default {
   },
   methods: {
     requiredImg(photo) {
-			return require(`../../../images/content/${photo}`);
+			return require(`../../images/content/${photo}`);
 		}
   },
   created() {

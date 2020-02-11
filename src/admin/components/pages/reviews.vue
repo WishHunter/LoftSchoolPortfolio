@@ -1,30 +1,30 @@
 <template lang="pug">
-  section.section.works
+  section.section.reviews
     .container
-      h2.section-title Блок "Работы"
+      h2.section-title Блок "Отзывы"
       .section-content
         .fullBlock
-          WorksEdit
+          ReviewsEdit
         .block
-          button.addWork(type="button")
+          button.addReview(type="button")
             .icon-plus +
-            p.text Добавить работу
+            p.text Добавить отзыв
         .block
-          Work
+          Review
         .block
-          Work
+          Review
         .block
-          Work
+          Review
 </template>
 
 <script>
-import WorksEdit from './worksEdit'
-import Work from './work'
+import ReviewsEdit from '../reviewEdit'
+import Review from '../review'
 
 export default {
   components: {
-    WorksEdit,
-    Work
+    ReviewsEdit,
+    Review
   }
 }
 </script>
@@ -52,7 +52,7 @@ export default {
       grid-column: 1/2;
     }
   }
-  .addWork {
+  .addReview {
     display: flex;
     align-items: center;
     justify-content: center;

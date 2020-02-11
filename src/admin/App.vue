@@ -1,57 +1,56 @@
 <template lang="pug">
   .content
-    Login
-    Header(
-      :name='userName'
-      :photo='userPhoto'
-    )
-    Navigation
-    main.main
-      AboutMe
-      Works
-      Reviews
+    template
+      Header(
+        :name='userName'
+        :photo='userPhoto'
+      )
+      Navigation
+      main.main
+        router-view
 </template>
 
 <script>
-  import Login from './src/components/login'
-  import Header from './src/components/header'
-  import Navigation from './src/components/navigation'
-  import AboutMe from './src/components/aboutMe'
-  import Works from './src/components/works'
-  import Reviews from './src/components/reviews'
+  import Header from './components/header'
+  import Navigation from './components/navigation'
+  import $axios from './requests'
 
 export default {
   data() {
     return {
       userName: 'Мольков Денис',
-      userPhoto: 'user.jpg'
+      userPhoto: 'user.jpg',
     }
   },
   components: {
-    Login,
     Header,
-    Navigation,
-    AboutMe,
-    Works,
-    Reviews
+    Navigation
   },
   methods: {
     requiredImgElem(userPhoto) {
 			return require(`../images/content/${userPhoto}`);
-		}
+    },
+    async tokenTest() {
+      try {
+        const {data} = await $axios.get('/user');
+        localStorage.setItem('user', data.user.id);
+      } catch (error) {
+        console.log(error);
+        this.$router.replace('/login');
+      }
+    }
   },
   created() {
     this.userPhoto = this.requiredImgElem(this.userPhoto);
+    this.tokenTest()
   }
 }
 </script>
 
 <style lang="postcss">
   @import "normalize.css";
-
-  * {
-    box-sizing: border-box;
-  }
+  @import "../styles/mixins.pcss";
+  @import "../styles/layout/base.pcss";
 
   html {
     @media (max-width: 767px) {
@@ -74,9 +73,7 @@ export default {
     }
   }
   body {
-    font-family: 'Open Sans', Helvetica, sans-serif;
-    font-size: 16px;
-    background-image: url('./src/assets/img/bg.jpg');
+    background-image: url('../images/content/autumn-bg.jpg');
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -103,7 +100,8 @@ export default {
   textarea {
     resize: none;
   }
-  .main {
+  .content {
+    min-height: 100vh;
     background-color: rgba(#fff, .9);
   }
   .section {

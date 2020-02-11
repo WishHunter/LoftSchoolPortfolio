@@ -1,28 +1,32 @@
 <template lang='pug'>
-  form(method='post' action='').work-block
+  form(method='post' action='' @submit.prevent='addThisWork()').work-block
     .header
       p.title Редактирование работы
     .body
       label.img-block
-        input.img-loading(type='file')
+        input.img-loading(type='file' name='photo' @change='loadphoto()')
         .img-content
-          .img-preload
-            p.img-load-text Перетащите или загрузите для загрузки изображения
-            button.btn-main(type="button")
-              span.btn-main__text Загрузить
+          .img-preload(
+            :class='{active: photoLoad}'
+            :style='{backgroundImage: photoBase64}'
+          )
+            .img-text
+              p.img-load-text Перетащите или загрузите для загрузки изображения
+              button.btn-main(type="button")
+                span.btn-main__text Загрузить
       .information
         label.label
           span.input-name Название
-          input.input(value='Дизайн сайта для авто салона Porsche')
+          input.input(v-model='editWork.title' name='title')
         label.label
           span.input-name Ссылка
-          input.input(value='https://www.porsche-pulkovo.ru')
+          input.input(:value='editWork.link' name='link')
         label.label
           span.input-name Описание
-          textarea.textarea(rows='4') Порше Центр Пулково - является официальным дилером марки Порше в Санкт-Петербурге и предоставляет полный цикл услуг по продаже и сервисному обслуживанию автомобилей
+          textarea.textarea(rows='4' name='description') {{ editWork.description }}
         label.label
           span.input-name Добавление тега
-          input.input(value='Jquery, Vue.js, HTML5')
+          input.input(:value='editWork.techs' name='techs')
         .tegs
           .teg
             span.teg-name Jquery
@@ -44,6 +48,47 @@
       button.btn-main
         span.btn-main__text Сохранить
 </template>
+
+<script>
+import { mapState, mapActions } from 'vuex'
+export default {
+  data() {
+    return {
+      photoLoad: false,
+      photoBase64: '',
+    }
+  },
+  computed: {
+
+    //TODO добавь объект в дата "editWork", замени имя этому объекту на "selectedWork" и скопирую данные из одного объекта в другой, что бы использовать v-model
+    ...mapState('works', {
+      editWork: state => state.selectedWork
+    })
+  },
+  methods: {
+    ...mapActions('works', ['addWork']),
+
+    loadphoto() {
+      const fr = new FileReader();
+      fr.readAsDataURL(event.target.files[0]);
+      fr.addEventListener("load", () => {
+        this.photoBase64 = `url(${fr.result})`;
+        this.photoLoad = true;
+      })
+    },
+
+    async addThisWork() {
+      try {
+
+        await this.addWork(new FormData(event.target));
+
+      } catch (error) {
+
+      }
+    }
+  }
+}
+</script>
 
 <style lang="postcss" scoped>
   .work-block {
@@ -98,23 +143,41 @@
   }
   .img-loading {
     position: absolute;
+    display: none;
     width: 100%;
     height: 100%;
     top: 0;
     left: 0;
     cursor: pointer;
-    opacity: 0;
     z-index: 2;
   }
   .img-preload {
+    position: relative;
+    background-color: rgb(222, 228, 237);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 50%;
+    width: 100%;
+    height: 275px;
+
+    &.active {
+      .img-text {
+        opacity: 0;
+      }
+    }
+  }
+  .img-text {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     border: 1px dashed #a1a1a1;
-    background-color: rgb(222, 228, 237);
-    width: 100%;
-    height: 275px;
+    transition: background, opacity .3s;
   }
   .img-load-text {
     line-height: 2;

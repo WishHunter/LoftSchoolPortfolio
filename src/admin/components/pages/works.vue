@@ -1,30 +1,33 @@
 <template lang="pug">
-  section.section.reviews
+  section.section.works
     .container
-      h2.section-title Блок "Отзывы"
+      h2.section-title Блок "Работы"
       .section-content
-        .fullBlock
-          ReviewsEdit
+        .fullBlock(
+          v-if='openEditWork'
+        )
+          WorksEdit
         .block
-          button.addReview(type="button")
+          button.addWork(type="button" @click='openEditWork=true')
             .icon-plus +
-            p.text Добавить отзыв
+            p.text Добавить работу
         .block
-          Review
-        .block
-          Review
-        .block
-          Review
+          Work
 </template>
 
 <script>
-import ReviewsEdit from './reviewEdit'
-import Review from './review'
+import WorksEdit from '../worksEdit'
+import Work from '../work'
 
 export default {
   components: {
-    ReviewsEdit,
-    Review
+    WorksEdit,
+    Work
+  },
+  data() {
+    return {
+      openEditWork: false
+    }
   }
 }
 </script>
@@ -52,7 +55,7 @@ export default {
       grid-column: 1/2;
     }
   }
-  .addReview {
+  .addWork {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -62,6 +65,7 @@ export default {
     cursor: pointer;
     width: 100%;
     height: 100%;
+    min-height: 400px;
     background-image: linear-gradient(90deg, rgb(0,106,237) 0%, rgb(32,80,220) 48%, rgb(63,53,203) 100%);
     @media (max-width: 767px) {
       flex-direction: row;

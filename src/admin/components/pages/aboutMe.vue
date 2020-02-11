@@ -3,26 +3,50 @@
     .container
       .header
         h2.section-title Блок "Обо мне"
-        button.addGroup(type="button")
+        button.addGroup(type="button" @click='newCategory = true')
           span.icon-add.addGroup__icon +
           | Добавить группу
       .section-content
-        .block
-          SkillsBlock
-        .block
-          SkillsBlock
-        .block
-          SkillsBlock
+        SkillsBlockEdit(
+          v-if='newCategory'
+          @remove='newCategory = false'
+        )
+        SkillsBlock(
+          v-for='category in categories'
+          :key='category.id'
+          :category='category'
+        )
+
 </template>
 
 <script>
-  import SkillsBlock from './skills'
+  import SkillsBlock from '../skills';
+  import SkillsBlockEdit from '../skillsEdit';
+  import { mapActions, mapState } from 'vuex';
 
-export default {
-  components: {
-    SkillsBlock
+  export default {
+    components: {
+      SkillsBlock,
+      SkillsBlockEdit
+    },
+    data() {
+      return {
+        newCategory: false
+      }
+    },
+    computed: {
+      ...mapState('categories', {
+        categories: state => state.categories
+      })
+    },
+    created() {
+      this.viewCategories(),
+      this.viewSkills();
+    },
+    methods: {
+      ...mapActions('categories', ['viewCategories', 'viewSkills'])
+    },
   }
-}
 </script>
 
 <style lang="postcss" scoped>

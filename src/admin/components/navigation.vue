@@ -3,20 +3,22 @@
     .container
       ul.list
         li.item
-          a.link.active(href='#') Обо мне
+          router-link(
+            to='/'
+            exact-active-class="active"
+          ).link Обо мне
         li.item
-          a.link(href='#') Работы
+          router-link(
+            to='/works'
+            exact-active-class="active"
+          ).link Работы
         li.item
-          a.link(href='#') Отзывы
+          router-link(
+            to='/reviews'
+            exact-active-class="active"
+          ).link Отзывы
 </template>
 
-<script>
-export default {
-  props: {
-
-  }
-}
-</script>
 
 <style lang="postcss" scoped>
 .navigation {
@@ -34,6 +36,8 @@ export default {
   padding: 30px;
   color: #414c63;
   transition: color .2s ease-out;
+
+
   @media (max-width: 767px) {
     padding: 30px 20px;
   }
@@ -49,6 +53,7 @@ export default {
   }
   &:hover, &.active {
     color: #383bcf;
+    text-decoration: none;
     &:after {
       width: 100%;
     transition: width .2s ease-out;
