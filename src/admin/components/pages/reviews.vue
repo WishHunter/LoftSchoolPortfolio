@@ -3,28 +3,54 @@
     .container
       h2.section-title Блок "Отзывы"
       .section-content
-        .fullBlock
-          ReviewsEdit
+        .fullBlock(
+          v-if='openEditReview'
+        )
+          ReviewsEdit(
+            @remove='openEditReview=false'
+          )
         .block
-          button.addReview(type="button")
+          button.addReview(
+            type="button"
+            @click='openEditReview=true'
+          )
             .icon-plus +
             p.text Добавить отзыв
-        .block
-          Review
-        .block
-          Review
-        .block
-          Review
+        .block(
+          v-for='review in reviews'
+          :key='review.id'
+        )
+          Review(
+            :review='review'
+            @editReview='openEditReview=true'
+          )
 </template>
 
 <script>
 import ReviewsEdit from '../reviewEdit'
 import Review from '../review'
+import { mapState, mapActions } from 'vuex'
 
 export default {
   components: {
     ReviewsEdit,
     Review
+  },
+  data() {
+    return {
+      openEditReview: false
+    }
+  },
+  computed: {
+    ...mapState('reviews', {
+      reviews: state => state.reviews
+    })
+  },
+  created() {
+    this.viewReviews()
+  },
+  methods: {
+    ...mapActions('reviews', ['viewReviews'])
   }
 }
 </script>

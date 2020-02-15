@@ -1,5 +1,10 @@
 import Vue from "vue";
 import Flickity from "vue-flickity";
+import axios from 'axios';
+
+const $axios = axios.create({
+  baseURL: "https://webdev-api.loftschool.com/"
+});
 
 new Vue({
 	el: "#reviews",
@@ -31,9 +36,9 @@ new Vue({
 			this.checkArrows();
     },
 
-		makeRequiredImages(data) {
+    makeImages(data) {
 			return data.map(item => {
-				item.avatar = require(`../images/content/${item.avatar}`);
+        item.photo = `https://webdev-api.loftschool.com/${item.photo}`;
 				return item;
 			})
 		},
@@ -57,8 +62,14 @@ new Vue({
 		}
   },
 
-  created() {
-    const data = require("../json/reviews.json");
-		this.reviews = this.makeRequiredImages(data);
+  async created() {
+    try {
+      const { data } = await $axios.get('/reviews/257');
+      this.reviews = this.makeImages(data);
+      this.$refs.flickity.rerender();
+    } catch (error) {
+
+    }
+
   }
 });

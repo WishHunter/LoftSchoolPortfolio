@@ -1,18 +1,25 @@
 mixin reviews()
-	section.reviews#reviews(@click="checkArrows" @touchend="checkArrows")
-		.container
-			.reviews__container
-				.reviews__header
-					h2.reviews__title Что обо мне говорят
-					.reviews__arrows
-						button.reviews__arrow.reviews__arrow--prev(@click="previous" :disabled="true")
-						button.reviews__arrow.reviews__arrow--next(@click="next" :disabled="false")
-				flickity.reviews__slider.slider(ref="flickity" :options="flickityOptions")
-						.slider__slide(v-for="review in reviews")
-							.review
-								p.review__text {{ review.text }}
-								.review__autor
-									img.review__autor-photo(:src="review.avatar", :alt="review.name")
-									.review__autor-text
-										p.review__autor-name {{ review.name }}
-										p.review__autor-desc {{ review.desc }}
+  section.reviews#reviews(@click="checkArrows" @touchend="checkArrows")
+    .container
+      .reviews__container
+        .reviews__header
+          h2.reviews__title Что обо мне говорят
+          .reviews__arrows
+            button.reviews__arrow.reviews__arrow--prev(@click="previous" :disabled="true")
+            button.reviews__arrow.reviews__arrow--next(@click="next" :disabled="false")
+        flickity.reviews__slider.slider(
+          v-if="reviews.length > 0"
+          ref="flickity"
+          :options="flickityOptions"
+          )
+          .slider__slide(
+            v-for="review in reviews"
+            :key='review.id'
+          )
+            .review
+              p.review__text {{ review.text }}
+              .review__autor
+                img.review__autor-photo(:src="review.photo", :alt="review.author")
+                .review__autor-text
+                  p.review__autor-name {{ review.author }}
+                  p.review__autor-desc {{ review.occ }}

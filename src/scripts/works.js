@@ -1,4 +1,9 @@
 import Vue from "vue";
+import axios from 'axios';
+
+const $axios = axios.create({
+  baseURL: "https://webdev-api.loftschool.com/"
+});
 
 const worksText = {
 	template: '#works-text',
@@ -58,15 +63,8 @@ new Vue({
 			visibleDots: 4,
 			visibleDotStart: 0
 		}
-	},	
+	},
 	methods: {
-		requiredImgElem(data) {
-			return data.map(item => {
-				const requireImage = require(`../images/content/${item.preview}`);
-				item.preview = requireImage;
-				return item;
-			});
-		},
 		changeSlide(change) {
 			switch (change) {
 				case 'next':
@@ -82,7 +80,7 @@ new Vue({
 				this.activeElem = change;
 				this.checkArrows();
 			}
-			
+
 		},
 		checkArrows() {
 			let prev = this.$el.querySelector(".works__slider-nav-prev");
@@ -110,7 +108,10 @@ new Vue({
 			if (document.documentElement.clientWidth < 1800 && document.documentElement.clientWidth > 1200) {
 				this.visibleDots = 3; //3
 			};
+      if (this.visibleDots > this.works.length) {
+        this.visibleDots = this.works.length;
 
+      }
 			let visibleDotEnd = this.visibleDots; // 3
 
 
@@ -119,11 +120,33 @@ new Vue({
 			}
 
 			this.visibleDotStart = visibleDotEnd - this.visibleDots; // 0
-		}
+    },
+
+    makeImagesAndTegs(data) {
+      return data.map(item => {
+        item.photo = `https://webdev-api.loftschool.com/${item.photo}`;
+        let objectTegs = [];
+        let arrayTegs = item.techs.split(',');
+        arrayTegs.forEach((value, index) => {
+          if (value && value !== ' ') {
+            objectTegs.push({
+              id: index,
+              name: value
+            })
+          }
+        });
+        item.techs = objectTegs;
+        return item;
+      })
+    }
 	},
-	created() {
-		const data = require('../json/works.json');
-		this.works = this.requiredImgElem(data);
-		this.visibleDot();
+  async created() {
+    try {
+      const { data } = await $axios.get('/works/257');
+      this.works = this.makeImagesAndTegs(data);
+      this.visibleDot();
+    } catch (error) {
+
+    }
 	}
 });

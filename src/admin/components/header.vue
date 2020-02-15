@@ -6,15 +6,25 @@
 					img.photo(:src='photo')
 				p.name {{ name }}
 				p.desc Панель администрирования
-				a.link_exit(href="#") Выйти
+				a.link_exit(href="#" @click="logoutUser") Выйти
 </template>
 
 <script>
+import { mapActions } from "vuex";
+
 export default {
 	props: {
 		name: String,
 		photo: String
-	}
+  },
+  methods: {
+    ...mapActions("user", ["logout"]),
+
+    logoutUser() {
+      this.logout();
+      this.$router.replace("/login");
+    }
+  }
 }
 </script>
 

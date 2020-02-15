@@ -1,61 +1,63 @@
 mixin works()
-	section.works#works
-		.container
-			h2.works__title Мои работы
-			#works-component
+  section.works#works
+    .container
+      h2.works__title Мои работы
+      #works-component
 
 
 script(type="text/x-template")#works-container
-	.works__slider
-		worksImg(
-			:works = 'works'
-			:activeElem = 'activeElem'
-			:visibleDots = 'visibleDots'
-			:visibleDotStart = 'visibleDotStart'
-			@change='changeSlide'
-			)
+  .works__slider
+    worksImg(
+      v-if="works.length > 0"
+      :works = 'works'
+      :activeElem = 'activeElem'
+      :visibleDots = 'visibleDots'
+      :visibleDotStart = 'visibleDotStart'
+      @change='changeSlide'
+      )
 
-		worksText(
-			:work = 'works[activeElem]'
-			)
+    worksText(
+      v-if="works.length > 0"
+      :work = 'works[activeElem]'
+      )
 
 script(type="text/x-template")#works-img
-	.works__slider-img-block(:data-slide='works[activeElem].id')
-		img.works__slider-img(:src='works[activeElem].preview' alt="")
-		worksNav(
-			:works = 'works'
-			:activeElem = 'activeElem'
-			:visibleDots = 'visibleDots'
-			:visibleDotStart = 'visibleDotStart'
-			@change='changeSlide'
-			)
+  .works__slider-img-block(:data-slide='activeElem + 1')
+    img.works__slider-img(:src='works[activeElem].photo' alt="")
+    worksNav(
+      :works = 'works'
+      :activeElem = 'activeElem'
+      :visibleDots = 'visibleDots'
+      :visibleDotStart = 'visibleDotStart'
+      @change='changeSlide'
+      )
 
 script(type="text/x-template")#works-nav
-	.works__slider-nav
-		button.works__slider-nav-prev(@click="changeSlide('prev')" disabled)
-		.works__slider-nav-dots
-			button.works__slider-nav-dot-link(
-				v-for="n in visibleDots"
-				:key="works[n-1+visibleDotStart].id"
-				:class="{ active: n-1+visibleDotStart === activeElem }"
-				:data-slide='n'
-				@click="changeSlide(n-1+visibleDotStart)"
-			)
-				img.works__slider-img(:src='works[n-1+visibleDotStart].preview' alt="" )
-		button.works__slider-nav-next(@click="changeSlide('next')")
+  .works__slider-nav
+    button.works__slider-nav-prev(@click="changeSlide('prev')" disabled)
+    .works__slider-nav-dots
+      button.works__slider-nav-dot-link(
+        v-for="n in visibleDots"
+        :key="works[n-1+visibleDotStart].id"
+        :class="{ active: n-1+visibleDotStart === activeElem }"
+        :data-slide='n'
+        @click="changeSlide(n-1+visibleDotStart)"
+      )
+        img.works__slider-img(:src='works[n-1+visibleDotStart].photo' alt="" )
+    button.works__slider-nav-next(@click="changeSlide('next')")
 
 script(type="text/x-template")#works-text
-	.works__slider-text-block
-		.works__slider-slide1
-			.works__slider-tags
-				span.works__slider-tag(
-					v-for="(tag, index) in work.tags"
-					:key="index"
-				) {{ tag }}
-			h3.works__slider-title {{ work.name }}
-			p.works__slider-desc {{ work.desc }}
-			a.link.works__slider-link(:href="work.link" target="_blank")
-				- var icon = require(`images/icons/link.svg`);
-					svg(class="works__slider-link-icon" viewBox=icon.viewBox preserveAspectRatio="none")
-						use(xlink:href=icon.url)
-				span Посмотреть сайт
+  .works__slider-text-block
+    .works__slider-slide1
+      .works__slider-tags
+        span.works__slider-tag(
+          v-for="tag in work.techs"
+          :key="tag.id"
+        ) {{ tag.name }}
+      h3.works__slider-title {{ work.title }}
+      p.works__slider-desc {{ work.description }}
+      a.link.works__slider-link(:href="work.link" target="_blank")
+        - var icon = require(`images/icons/link.svg`);
+          svg(class="works__slider-link-icon" viewBox=icon.viewBox preserveAspectRatio="none")
+            use(xlink:href=icon.url)
+        span Посмотреть сайт

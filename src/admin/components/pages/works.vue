@@ -6,18 +6,30 @@
         .fullBlock(
           v-if='openEditWork'
         )
-          WorksEdit
+          WorksEdit(
+            @remove='openEditWork=false'
+          )
         .block
-          button.addWork(type="button" @click='openEditWork=true')
+          button.addWork(
+            type="button"
+            @click='openEditWork=true'
+          )
             .icon-plus +
             p.text Добавить работу
-        .block
-          Work
+        .block(
+          v-for='work in works'
+          :key='work.id'
+        )
+          Work(
+            :work='work'
+            @editWork='openEditWork=true'
+          )
 </template>
 
 <script>
 import WorksEdit from '../worksEdit'
 import Work from '../work'
+import { mapState, mapActions } from 'vuex'
 
 export default {
   components: {
@@ -28,6 +40,17 @@ export default {
     return {
       openEditWork: false
     }
+  },
+  computed: {
+    ...mapState('works', {
+      works: state => state.works
+    })
+  },
+  created() {
+    this.viewWorks();
+  },
+  methods: {
+    ...mapActions('works', ['viewWorks'])
   }
 }
 </script>

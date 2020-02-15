@@ -5,27 +5,27 @@ mixin skills()
 			.skills__desc
 				h2.skills__desc-title Чем я могу быть полезен вам
 				p.skills__desc-text Этот сайт я сделал в рамках обучения в Школе онлайн образования LoftSchool. Чуть позже я освежу в нём свой контент. А пока посмотрите, как тут всё классно и красиво!
-			
+
 			#skills-component
 
 
 script(type="text/x-template")#skills-container
 	.skills__container
 		skillsList(
-			v-for="skillList in skills" 
-			:key="skillList.name" 
-			:skillList="skillList"
+			v-for='skillList in skills'
+			:key='skillList.id'
+			:skillList='skillList'
 		)
-		
+
 
 script(type="text/x-template")#skills-list
 	.skills__line
-		h3.skills__title {{ skillList.name }}
+		h3.skills__title {{ skillList.category }}
 		.skills__flex
 			skill(
-				v-for="(skillPercent, skillName) in skillList.skills"
-				:skillName="skillName"
-				:skillPercent="skillPercent"
+				v-for='skill in skillList.skills'
+        :key='skill.id'
+				:skill='skill'
 			)
 
 script(type="text/x-template")#skill
@@ -33,4 +33,4 @@ script(type="text/x-template")#skill
 		svg.skill.skills__skill(viewBox="0 0 130 130")
 			circle.skill__circle(cx="65" cy="65" r="60")
 			circle.skill__level(ref="color-circle" cx="65" cy="65" r="60" stroke-dasharray='188.4' stroke-dashoffset="188.4")
-		span.skill__name {{ skillName }}
+		span.skill__name {{ skill.title }}

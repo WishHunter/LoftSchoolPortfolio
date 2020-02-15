@@ -73,11 +73,13 @@ export default {
     }
   }
   body {
+    color: #414c63;
+  }
+  .admin-wrapper {
     background-image: url('../images/content/autumn-bg.jpg');
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;
-    color: #414c63;
   }
   p {
     margin: 0;

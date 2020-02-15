@@ -4,15 +4,19 @@
       p.title Редактирование работы
     .body
       label.img-block
-        input.img-loading(type='file' name='photo' @change='loadphoto()')
+        input.img-loading(
+          type='file'
+          name='photo'
+          @change='loadphoto()'
+        )
         .img-content
           .img-preload(
-            :class='{active: photoLoad}'
-            :style='{backgroundImage: photoBase64}'
+            :class='{active: editWork.photo}'
+            :style='{backgroundImage: editWork.photo}'
           )
             .img-text
               p.img-load-text Перетащите или загрузите для загрузки изображения
-              button.btn-main(type="button")
+              div.btn-main
                 span.btn-main__text Загрузить
       .information
         label.label
@@ -20,71 +24,104 @@
           input.input(v-model='editWork.title' name='title')
         label.label
           span.input-name Ссылка
-          input.input(:value='editWork.link' name='link')
+          input.input(v-model='editWork.link' name='link')
         label.label
           span.input-name Описание
-          textarea.textarea(rows='4' name='description') {{ editWork.description }}
+          textarea.textarea(rows='4' name='description' v-model='editWork.description')
         label.label
           span.input-name Добавление тега
-          input.input(:value='editWork.techs' name='techs')
+          input.input(v-model='editWork.techs' name='techs' @input='addTegs()')
         .tegs
-          .teg
-            span.teg-name Jquery
-            button.btn-icon.teg-delete(type='button')
-              svg.icon-remove(preserveAspectRatio="none")
-                use(xlink:href='sprite.svg#remove')
-          .teg
-            span.teg-name Vue.js
-            button.btn-icon.teg-delete(type='button')
-              svg.icon-remove(preserveAspectRatio="none")
-                use(xlink:href='sprite.svg#remove')
-          .teg
-            span.teg-name HTML5
-            button.btn-icon.teg-delete(type='button')
+          .teg(
+            v-for='teg in tegs'
+            :key='teg.id'
+          )
+            span.teg-name {{teg.name}}
+            button.btn-icon.teg-delete(
+              type='button'
+              @click='tegDelete(teg.id)'
+              )
               svg.icon-remove(preserveAspectRatio="none")
                 use(xlink:href='sprite.svg#remove')
     .footer
-      button.btn-cancel(type='button') Отмена
+      button.btn-cancel(
+        type='button'
+        @click='discard()'
+        ) Отмена
       button.btn-main
         span.btn-main__text Сохранить
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
+import { mapState, mapActions, mapMutations } from 'vuex'
 export default {
   data() {
     return {
-      photoLoad: false,
-      photoBase64: '',
+      tegs: []
     }
   },
   computed: {
-
-    //TODO добавь объект в дата "editWork", замени имя этому объекту на "selectedWork" и скопирую данные из одного объекта в другой, что бы использовать v-model
     ...mapState('works', {
       editWork: state => state.selectedWork
-    })
+    }),
+  },
+  created() {
+    this.addTegs();
   },
   methods: {
-    ...mapActions('works', ['addWork']),
+    ...mapMutations('works', ['CLEAR_SELECTEDWORK']),
+    ...mapActions('works', ['addWork', 'changeWork']),
 
     loadphoto() {
       const fr = new FileReader();
+
       fr.readAsDataURL(event.target.files[0]);
       fr.addEventListener("load", () => {
-        this.photoBase64 = `url(${fr.result})`;
-        this.photoLoad = true;
+        this.editWork.photo = `url(${fr.result})`;
       })
     },
 
     async addThisWork() {
       try {
+        const form = event.target;
+        const formData = new FormData(form);
+        if (this.editWork.id) {
+          await this.changeWork(formData);
+        } else {
+          await this.addWork(formData);
+        }
 
-        await this.addWork(new FormData(event.target));
-
+        this.$emit('remove');
       } catch (error) {
 
       }
+    },
+
+    discard() {
+      this.CLEAR_SELECTEDWORK();
+      this.$emit('remove');
+    },
+
+    addTegs() {
+      this.tegs.length=0;
+      let arrayTegs = this.editWork.techs.split(',');
+      arrayTegs.forEach((value, index) => {
+        if (value && value !== ' ') {
+          this.tegs.push({
+            id: index,
+            name: value
+          })
+        }
+      })
+    },
+
+    tegDelete(id) {
+      this.tegs = this.tegs.filter(teg => teg.id !== id);
+      let tegsArray = [];
+      this.tegs.forEach(value => {
+        tegsArray.push(value.name);
+      })
+      this.editWork.techs = tegsArray.join(',');
     }
   }
 }
@@ -149,7 +186,7 @@ export default {
     top: 0;
     left: 0;
     cursor: pointer;
-    z-index: 2;
+    z-index: 5;
   }
   .img-preload {
     position: relative;

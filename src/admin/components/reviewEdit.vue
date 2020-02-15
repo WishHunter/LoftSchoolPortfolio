@@ -1,44 +1,97 @@
 <template lang='pug'>
-  form(method='post' action='').review-block
+  form(method='post' action='' @submit.prevent='addThisReview()').review-block
     .header
       p.title Новый отзыв
     .body
       .img-block
         .img-container
-          img.photo(:src='editPhoto')
+          .photo(
+            :class='{active: editReview.photo}'
+            :style='{backgroundImage: editReview.photo}'
+          )
         label.label-add-photo
-          input.input-add-photo(type='file')
+          input.input-add-photo(
+            type='file'
+            name='photo'
+            @change='loadphoto()'
+          )
           span.span-add-photo Добавить фото
       .information
         label.label
           span.input-name Имя автора
-          input.input(value='Ковальчук Дмитрий')
+          input.input(
+            v-model='editReview.author'
+            name='author'
+          )
         label.label
           span.input-name Титул автора
-          input.input(value='Основатель LoftSchool')
+          input.input(
+            v-model='editReview.occ'
+            name='occ'
+          )
         label.fullLabel
           span.input-name Отзыв
-          textarea.textarea(rows='3') Этот парень проходил обучение веб-разработке не где-то, а в LoftSchool! 4,5 месяца только самых тяжелых испытаний и бессонных ночей!
+          textarea.textarea(
+            rows='3'
+            v-model='editReview.text'
+            name='text'
+          )
     .footer
-      button.btn-cancel(type='button') Отмена
+      button.btn-cancel(
+        type='button'
+        @click='discard()'
+      ) Отмена
       button.btn-main
         span.btn-main__text Сохранить
 </template>
 
 <script>
+import { mapState, mapActions, mapMutations } from 'vuex'
+
 export default {
   data() {
     return {
       editPhoto: 'no-photo.jpg'
     }
   },
-  methods: {
-    requiredImg(photo) {
-			return require(`../../images/content/${photo}`);
-		}
+  computed: {
+    ...mapState('reviews', {
+      editReview: state => state.selectedReview
+    })
   },
-  created() {
-    this.editPhoto = this.requiredImg(this.editPhoto);
+  methods: {
+    ...mapMutations('reviews', ['CLEAR_SELECTEDREVIEW']),
+    ...mapActions('reviews', ['addReview', 'changeReview']),
+
+    loadphoto() {
+      const fr = new FileReader();
+
+      fr.readAsDataURL(event.target.files[0]);
+      fr.addEventListener("load", () => {
+        this.editReview.photo = `url(${fr.result})`;
+      })
+    },
+
+    discard() {
+      this.CLEAR_SELECTEDREVIEW();
+      this.$emit('remove');
+    },
+
+    async addThisReview() {
+      try {
+        const form = event.target;
+        const formData = new FormData(form);
+        if (this.editReview.id) {
+          await this.changeReview(formData);
+        } else {
+          await this.addReview(formData);
+        }
+
+        this.$emit('remove');
+      } catch (error) {
+
+      }
+    }
   }
 }
 </script>
@@ -79,17 +132,22 @@ export default {
   .img-container {
     width: 200px;
     height: 200px;
-    position: relative;
-    border-radius: 100%;
-    overflow: hidden;
     margin-bottom: 28px;
   }
   .photo {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    max-height: 100%;
-    transform: translate(-50%, -50%)
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(222, 228, 237);
+    background-image: svg-load('autor.svg', fill=#fff);
+    background-size: 60%;
+    background-position: center center;
+    background-repeat: no-repeat;
+    border-radius: 100%;
+
+    &.active {
+      background-size: cover;
+    }
   }
   .label-add-photo {
     text-align: center;

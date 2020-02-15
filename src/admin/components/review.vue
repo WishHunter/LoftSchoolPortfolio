@@ -1,18 +1,18 @@
 <template lang="pug">
   .review
     .header
-      img.user-photo(:src='userPhoto')
+      img.user-photo(:src='`https://webdev-api.loftschool.com/${review.photo}`')
       .user-info
-        p.user-name Владимир Сабанцев
-        p.user-desc Преподаватель
+        p.user-name {{ review.author }}
+        p.user-desc {{ review.occ }}
     .body
-      p.review-text Этот код выдержит любые испытания. Только пожалуйста, не загружайте сайт на слишком старых браузерах
+      p.review-text {{ review.text }}
     .footer
-      button.btn-icon.review__btn(type='button')
+      button.btn-icon.review__btn(type='button' @click='editThisReview')
         span.btn-text Править
         svg.icon-edit(preserveAspectRatio="none")
           use(xlink:href='sprite.svg#pencil')
-      button.btn-icon.review__btn(type='button')
+      button.btn-icon.review__btn(type='button' @click='deleteThisReview')
         span.btn-text Удалить
         svg.icon-remove(preserveAspectRatio="none")
           use(xlink:href='sprite.svg#remove')
@@ -21,19 +21,32 @@
 
 
 <script>
+import {mapActions, mapMutations} from 'vuex';
+
 export default {
+  props: {
+    review: Object
+  },
   data() {
     return {
-      userPhoto: 'review1.png'
     }
   },
   methods: {
-    requiredImg(photo) {
-			return require(`../../images/content/${photo}`);
-		}
-  },
-  created() {
-    this.userPhoto = this.requiredImg(this.userPhoto);
+    ...mapActions('reviews', ['deleteReview']),
+    ...mapMutations('reviews', ['CHANGE_REVIEW']),
+
+    async deleteThisReview() {
+      try {
+        await this.deleteReview(this.review.id);
+      } catch (error) {
+
+      }
+    },
+
+    editThisReview() {
+      this.CHANGE_REVIEW(this.review);
+      this.$emit('editReview');
+    },
   }
 }
 </script>

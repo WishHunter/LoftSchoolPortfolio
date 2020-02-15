@@ -1,42 +1,77 @@
 <template lang="pug">
   .work
     .header
-      img.preview_photo(:src='userPhoto')
-      .tags
-        p.tag HTML
-        p.tag CSS
-        p.tag javascript
+      img.preview_photo(:src='`https://webdev-api.loftschool.com/${work.photo}`')
+      .tegs
+        p.teg(
+          v-for='teg in tegs'
+          :key='teg.id'
+        ) {{ teg.name }}
+
     .body
-      p.title Дизайн сайта для авто салона Porsche
-      p.desc Порше Центр Пулково - является официальным дилером марки Порше в Санкт-Петербурге и предоставляет полный цикл услуг по продаже и сервисному обслуживанию автомобилей
-      a.link(href='https://www.porsche-pulkovo.ru') https://www.porsche-pulkovo.ru
+      p.title {{ work.title }}
+      p.desc {{ work.description }}
+      a.link(:href='work.link') {{ work.link }}
     .footer
-      button.btn-icon.work__btn(type='button')
+      button.btn-icon.work__btn(type='button' @click='editThisWork')
         span.btn-text Править
         svg.icon-edit(preserveAspectRatio="none")
           use(xlink:href='sprite.svg#pencil')
-      button.btn-icon.work__btn(type='button')
+      button.btn-icon.work__btn(type='button' @click='deleteThisWork')
         span.btn-text Удалить
         svg.icon-remove(preserveAspectRatio="none")
           use(xlink:href='sprite.svg#remove')
-
 </template>
 
 
 <script>
+import {mapActions, mapMutations} from 'vuex';
+
 export default {
+  props: {
+    work: Object
+  },
   data() {
     return {
-      userPhoto: 'work1.jpg'
+      tegs: []
+    }
+  },
+  created() {
+    this.addTegs();
+  },
+  watch: {
+    work: function() {
+      this.addTegs();
     }
   },
   methods: {
-    requiredImg(photo) {
-			return require(`../../images/content/${photo}`);
-		}
-  },
-  created() {
-    this.userPhoto = this.requiredImg(this.userPhoto);
+    ...mapActions('works', ['deleteWork']),
+    ...mapMutations('works', ['CHANGE_WORK']),
+
+    async deleteThisWork() {
+      try {
+        await this.deleteWork(this.work.id);
+      } catch (error) {
+
+      }
+    },
+    editThisWork() {
+      this.CHANGE_WORK(this.work);
+      this.$emit('editWork');
+    },
+
+    addTegs() {
+      this.tegs.length=0;
+      let arrayTegs = this.work.techs.split(',');
+      arrayTegs.forEach((value, index) => {
+        if (value && value !== ' ') {
+          this.tegs.push({
+            id: index,
+            name: value
+          })
+        }
+      })
+    }
   }
 }
 </script>
@@ -52,13 +87,13 @@ export default {
   .preview_photo {
     max-width: 100%;
   }
-  .tags {
+  .tegs {
     position: absolute;
     right: 5px;
     bottom: 5px;
     color: rgba(#283340, .7)
   }
-  .tag {
+  .teg {
     display: inline-block;
     margin: 5px;
     border-radius: 15px;
