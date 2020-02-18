@@ -51,33 +51,20 @@ export default {
     },
 
     async addReview({ commit }, review) {
-      try {
-        const { data } = await this.$axios.post('/reviews', review);
-        commit('ADD_NEW_REVIEW', data);
-        commit('CLEAR_SELECTEDREVIEW');
-      } catch (error) {
-
-      }
+      const { data } = await this.$axios.post('/reviews', review);
+      commit('ADD_NEW_REVIEW', data);
+      commit('CLEAR_SELECTEDREVIEW');
     },
 
     async deleteReview({ commit }, reviewId) {
-      try {
-        const { data } = await this.$axios.delete(`/reviews/${reviewId}`);
-        commit('DELETE_REVIEW', reviewId);
-
-      } catch (error) {
-
-      }
+      const { data } = await this.$axios.delete(`/reviews/${reviewId}`);
+      commit('DELETE_REVIEW', reviewId);
     },
 
     async changeReview({ commit, state }, review) {
-      try {
-        const { data } = await this.$axios.post(`/reviews/${state.selectedReview.id}`, review)
-        commit('EDIT_REVIEW', data.review);
-        commit('CLEAR_SELECTEDREVIEW');
-      } catch (error) {
-
-      }
+      const { data } = await this.$axios.post(`/reviews/${state.selectedReview.id}`, review)
+      commit('EDIT_REVIEW', data.review);
+      commit('CLEAR_SELECTEDREVIEW');
     }
   }
 }

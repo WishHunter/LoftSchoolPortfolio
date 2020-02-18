@@ -23,7 +23,19 @@ script(type="text/x-template")#works-container
 
 script(type="text/x-template")#works-img
   .works__slider-img-block(:data-slide='activeElem + 1')
-    img.works__slider-img(:src='works[activeElem].photo' alt="")
+    transition-group(
+      tag='div'
+      name='slide'
+      mode='out-in'
+    )
+      div.works__slider-img-visible(
+        v-for='work in worksActive'
+        :key='work.id'
+      )
+        img.works__slider-img(
+          :src='work.photo'
+          alt=""
+        )
     worksNav(
       :works = 'works'
       :activeElem = 'activeElem'

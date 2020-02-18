@@ -1,13 +1,15 @@
 <template lang="pug">
   .skills-block
-    .header(
+    form.header(
       v-if="editHeader"
+      @submit.prevent='newHeader()'
     )
       input.title(
+        type='text'
         placeholder="Название группы"
         v-model="title"
       )
-      button.btn-icon.skill__btn(type='button' @click='newHeader()')
+      button.btn-icon.skill__btn
           svg.icon-tick(preserveAspectRatio="none")
             use(xlink:href='sprite.svg#tick')
       button.btn-icon.skill__btn(type='button' @click='deleteThisCategory()')
@@ -27,27 +29,40 @@
         :skill="skill"
       )
 
-    .footer
-      input.skill__name(placeholder="Новый навык" v-model='newSkill.title')
+    form.footer( @submit.prevent='addNewSkill()')
+      input.skill__name(type='text' placeholder="Новый навык" v-model='newSkill.title')
       div.skill__percent
-        input.skill__percent.input(value="100" v-model='newSkill.percent')
-      button.btn-icon(type="button" @click='addNewSkill()')
+        input.skill__percent.input(data-type='percent' value="100" v-model='newSkill.percent')
+      button.btn-icon
         span.icon-add.addGroup__icon +
+
+    message(
+      v-if='responseMessage.check'
+      :responseMessage='responseMessage'
+      @closeMessage='responseMessage.check=false'
+    )
 </template>
 
 
 <script>
   import { mapActions, mapState } from 'vuex';
+  import { verificationForm } from '../verification'
 
   export default {
     components: {
-      skill: () => import('./skill')
+      skill: () => import('./skill'),
+      message: () => import('./error')
     },
     props: {
       category: Object
     },
     data() {
       return {
+        responseMessage: {
+          check: false,
+          type: '',
+          text: ''
+        },
         editHeader: false,
         title: '',
         newSkill: {
@@ -72,13 +87,18 @@
 
       async newHeader() {
         try {
+          const form = verificationForm(event.target);
+          if (!form) {
+            return;
+          }
 
           await this.editCategory([this.category.id, this.title]);
           this.editHeader = false;
 
         } catch (error) {
-          console.log(error);
-
+          this.responseMessage.check=true;
+          this.responseMessage.type='error';
+          this.responseMessage.text = error.response.data.error || error.response.data.errors[Object.keys(error.response.data.errors)[0]][0];
         }
       },
 
@@ -86,17 +106,27 @@
         try {
           await this.deleteCategory(this.category.id);
         } catch (error) {
-
+          this.responseMessage.check=true;
+          this.responseMessage.type='error';
+          this.responseMessage.text = error.response.data.error || error.response.data.errors[Object.keys(error.response.data.errors)[0]][0];
         }
       },
 
       async addNewSkill() {
         try {
+          const form = verificationForm(event.target);
+          if (!form) {
+            return;
+          }
           await this.addSkill(this.newSkill);
           this.newSkill.title = '';
           this.newSkill.percent = '100';
-        } catch (error) {
 
+        //TODO Как правильней вынести повторяющийся компонент?
+        } catch (error) {
+          this.responseMessage.check=true;
+          this.responseMessage.type='error';
+          this.responseMessage.text = error.response.data.error || error.response.data.errors[Object.keys(error.response.data.errors)[0]][0];
         }
       }
     }
@@ -153,6 +183,7 @@
     &__name {
       padding: 5px;
       flex-grow: 1;
+      min-width: 0;
     }
 
     &__percent {

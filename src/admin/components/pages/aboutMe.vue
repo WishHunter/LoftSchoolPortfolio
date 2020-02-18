@@ -40,6 +40,7 @@
       })
     },
     created() {
+      //TODO Как повесить обработчик ошибок сюда?
       this.viewCategories(),
       this.viewSkills();
     },

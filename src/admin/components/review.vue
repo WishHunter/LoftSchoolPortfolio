@@ -16,7 +16,11 @@
         span.btn-text Удалить
         svg.icon-remove(preserveAspectRatio="none")
           use(xlink:href='sprite.svg#remove')
-
+    message(
+      v-if='responseMessage.check'
+      :responseMessage='responseMessage'
+      @closeMessage='responseMessage.check=false'
+    )
 </template>
 
 
@@ -24,11 +28,19 @@
 import {mapActions, mapMutations} from 'vuex';
 
 export default {
+  components: {
+    message: () => import('./error')
+  },
   props: {
     review: Object
   },
   data() {
     return {
+      responseMessage: {
+        check: false,
+        type: '',
+        text: ''
+      },
     }
   },
   methods: {
@@ -39,7 +51,9 @@ export default {
       try {
         await this.deleteReview(this.review.id);
       } catch (error) {
-
+        this.responseMessage.check=true;
+        this.responseMessage.type='error';
+        this.responseMessage.text = error.response.data.error || error.response.data.message;
       }
     },
 

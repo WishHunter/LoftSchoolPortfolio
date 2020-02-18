@@ -1,7 +1,7 @@
 <template lang="pug">
   .login__bg
     form.login(@submit.prevent="login")
-      h1.login__title Авторизация
+      h1.login__title() Авторизация
       label.login__label
         input.login__input(name="name" type="text" @change="inputDesc" v-model="user.name")
         span.login__desc Логин
@@ -14,18 +14,32 @@
           use(xlink:href='sprite.svg#key')
       button.login__btn
         span.login__btn-text Отправить
+    message(
+      v-if='responseMessage.check'
+      :responseMessage='responseMessage'
+      @closeMessage='responseMessage.check=false'
+    )
 </template>
 
 <script>
 import $axios from '../../requests';
+import { verificationForm } from '../../verification'
 
 export default {
+  components: {
+    message: () => import('../error'),
+  },
   data() {
     return {
+      responseMessage: {
+        check: false,
+        type: '',
+        text: ''
+      },
       user: {
         name: '',
         password: ''
-      }
+      },
     }
   },
   methods: {
@@ -40,17 +54,21 @@ export default {
 
     async login() {
       try {
-
-        const responce = await $axios.post('/login', this.user);
-        const token = responce.data.token;
-
+        const form = verificationForm(event.target);
+        if (!form) {
+          return;
+        }
+        const response = await $axios.post('/login', this.user);
+        const token = response.data.token;
         localStorage.setItem('token', token);
         $axios.defaults.headers['Authorization'] = `Bearer ${token}`
 
         this.$router.replace('/');
 
       } catch (error) {
-        console.log(error);
+        this.responseMessage.check=true;
+        this.responseMessage.type='error';
+        this.responseMessage.text = error.response.data.error || error.response.data.errors[Object.keys(error.response.data.errors)[0]][0];
       }
     }
   }
@@ -108,38 +126,11 @@ export default {
       z-index: 2;
       padding: 20px 20px 20px 46px;
       width: 100%;
-      border: none;
-      border-bottom: 1px solid #414c63;
       background-color: transparent;
       background-repeat: no-repeat;
       background-position: center left;
-      font-size: 18px;
-      color: #414c63;
       font-weight: bold;
-      transition: background .2s;
-
-      &:hover, &:focus {
-        outline: none;
-        border-color: $main-color;
-
-        & + .login__desc + .login__icon {
-          fill: $main-color;
-        }
-      }
-
-      &--name {
-        background-image: svg-load('user.svg', fill=rgba(#414c63, .3), width=26px, height=30px);
-        &:hover, &:focus {
-          background-image: svg-load('user.svg', fill=$main-color, width=26px, height=30px);
-        }
-        &.input--error{
-          background-image: svg-load('user.svg', fill=#fb0000, width=26px, height=30px);
-        }
-      }
-
-      &:focus + .login__desc, &.has-value + .login__desc {
-        bottom: 100%;
-      }
+      font-size: 18px;
     }
 
     &__desc {

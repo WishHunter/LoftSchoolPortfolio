@@ -1,24 +1,38 @@
 <template lang="pug">
   .skills-block
-    .header
+    form.header(@submit.prevent='newHeader()')
       input.title(
         placeholder="Название новой группы"
         v-model="title"
       )
-      button.btn-icon.skill__btn(type='button' @click='newHeader()')
+      button.btn-icon.skill__btn
           svg.icon-tick(preserveAspectRatio="none")
             use(xlink:href='sprite.svg#tick')
       button.btn-icon.skill__btn(type='button' @click="$emit('remove')")
           svg.icon-remove(preserveAspectRatio="none")
             use(xlink:href='sprite.svg#remove')
+    message(
+      v-if='responseMessage.check'
+      :responseMessage='responseMessage'
+      @closeMessage='responseMessage.check=false'
+    )
 </template>
 
 <script>
   import { mapActions } from 'vuex';
+  import { verificationForm } from '../verification'
 
   export default {
+    components: {
+      message: () => import('./error')
+    },
     data() {
       return {
+        responseMessage: {
+          check: false,
+          type: '',
+          text: ''
+        },
         editHeader: false,
         title: ''
       }
@@ -28,12 +42,24 @@
 
       async newHeader() {
         try {
+          const form = verificationForm(event.target);
+          if (!form) {
+            return;
+          }
 
           await this.addCategory(this.title);
           this.$emit('remove');
 
         } catch (error) {
-          console.log(error);
+
+          this.responseMessage.check=true;
+          this.responseMessage.type='error';
+
+          if (error.response.data.message) {
+            this.responseMessage.text='Не все поля заполнены';
+          } else if(error.response.data.error) {
+            this.responseMessage.text = error.response.data.error;
+          }
         }
       }
     }

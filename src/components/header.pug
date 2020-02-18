@@ -3,7 +3,7 @@ mixin nav(mod='')
 	ul(class=`nav ${mod}`)
 		li.
 		for item in menu
-			li.nav__item 
+			li.nav__item
 				a.nav__link.js-scrollTo(href=`#${item.link}`) #{item.name}
 
 mixin socNet(mod='')
@@ -11,7 +11,7 @@ mixin socNet(mod='')
 	ul(class=`socNet`)
 		for social in socNet
 			li.socNet__item
-				a(class=`socNet__link ${mod}` href= social.link target='_blank') 
+				a(class=`socNet__link ${mod}` href= social.link target='_blank')
 					+icon(social.name, 'socNet__icon')
 
 mixin header(className, logo, socNet)
@@ -26,7 +26,7 @@ mixin header(className, logo, socNet)
 				.header__socNet
 					+socNet()
 				.header__burget-menu.mobile-only
-					button.burget-menu(type='button')
+					button.burget-menu.js-toogle-menu(type='button')
 						span.burget-menu__line.burget-menu__line1
 						span.burget-menu__line.burget-menu__line2
 						span.burget-menu__line.burget-menu__line3

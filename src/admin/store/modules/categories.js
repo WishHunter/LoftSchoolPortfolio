@@ -27,24 +27,16 @@ export default {
   },
   actions: {
     async addCategory({ commit }, title) {
-      try {
-        const { data } = await this.$axios.post("/categories", { title });
-        commit("ADD_CATEGORY", data);
-      } catch (error) {
-        throw new Error(
-          error.response.data.error || error.response.data.message
-        );
-      }
+      const { data } = await this.$axios.post("/categories", { title });
+      commit("ADD_CATEGORY", data);
     },
 
     async editCategory({ commit }, category) {
-      try {
-        const id = category[0];
-        const title = category[1];
-        const { data } = await this.$axios.post(`/categories/${id}`, { title });
+      const id = category[0];
+      const title = category[1];
+      const { data } = await this.$axios.post(`/categories/${id}`, { title });
 
-        commit("EDIT_CATEGORY", data.category);
-      } catch (error) {}
+      commit("EDIT_CATEGORY", data.category);
     },
 
     async viewCategories({ commit }) {
@@ -52,15 +44,12 @@ export default {
         const { data } = await this.$axios.get("/categories");
         commit("SET_CATEGORY", data);
       } catch (error) {
-
       }
     },
 
     async deleteCategory({ commit }, id) {
-      try {
-        await this.$axios.delete(`/categories/${id}`);
-        commit("REMOVE_CATEGORY", id);
-      } catch (error) {}
+      await this.$axios.delete(`/categories/${id}`);
+      commit("REMOVE_CATEGORY", id);
     },
 
     async viewSkills({ commit }) {
@@ -73,30 +62,18 @@ export default {
     },
 
     async addSkill({ commit }, skill) {
-      try {
-        const { data } = await this.$axios.post('/skills', skill)
-        commit("ADD_SKILL", data);
-      } catch (error) {
-
-      }
+      const { data } = await this.$axios.post('/skills', skill)
+      commit("ADD_SKILL", data);
     },
 
     async deleteSkill({ commit }, id) {
-      try {
-        await this.$axios.delete(`/skills/${id}`)
-        commit('REMOVE_SKILL', id);
-      } catch (error) {
-
-      }
+      await this.$axios.delete(`/skills/${id}`)
+      commit('REMOVE_SKILL', id);
     },
 
     async editSkill({ commit }, obj) {
-      try {
-        const { data } = await this.$axios.post(`/skills/${obj.id}`, obj.newSkill)
-        commit('EDIT_SKILL', data.skill);
-      } catch (error) {
-
-      }
+      const { data } = await this.$axios.post(`/skills/${obj.id}`, obj.newSkill)
+      commit('EDIT_SKILL', data.skill);
     }
   }
 };

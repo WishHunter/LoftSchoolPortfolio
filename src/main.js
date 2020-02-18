@@ -9,3 +9,8 @@ import "./scripts/contact";
 import "./scripts/works";
 import "./scripts/parallax";
 import "./scripts/form";
+import scrollTo from './scripts/scrollTo';
+import mobileMenu from './scripts/mobileMenu';
+
+scrollTo();
+mobileMenu();

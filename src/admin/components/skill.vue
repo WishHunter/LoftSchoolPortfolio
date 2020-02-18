@@ -31,17 +31,30 @@
       button.btn-icon.skill__btn(type='button' @click="deleteThisSkill()")
         svg.icon-trash(preserveAspectRatio="none")
           use(xlink:href='sprite.svg#trash')
+    message(
+      v-if='responseMessage.check'
+      :responseMessage='responseMessage'
+      @closeMessage='responseMessage.check=false'
+    )
 </template>
 
 <script>
 import { mapActions } from 'vuex';
 
 export default {
+  components: {
+    message: () => import('./error')
+  },
   props: {
     skill: Object
   },
   data() {
     return {
+      responseMessage: {
+        check: false,
+        type: '',
+        text: ''
+      },
       edit: false,
       thisSkill: {
         title: '',
@@ -60,6 +73,9 @@ export default {
       try {
         await this.deleteSkill(this.skill.id)
       } catch (error) {
+        this.responseMessage.check=true;
+        this.responseMessage.type='error';
+        this.responseMessage.text = error.response.data.error || error.response.data.message;
 
       }
     },
@@ -79,7 +95,14 @@ export default {
         this.thisSkill.percent = skill.newSkill.percent;
         this.edit=false;
       } catch (error) {
+        this.responseMessage.check=true;
+        this.responseMessage.type='error';
 
+        if (error.response.data.message) {
+          this.responseMessage.text='Не все поля заполнены';
+        } else if(error.response.data.error) {
+          this.responseMessage.text = error.response.data.error;
+        }
       }
     }
   }
@@ -97,6 +120,7 @@ export default {
     &__name {
       padding: 5px;
       flex-grow: 1;
+      min-width: 0;
     }
 
     &__percent {

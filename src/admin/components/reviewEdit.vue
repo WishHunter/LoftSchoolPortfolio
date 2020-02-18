@@ -43,15 +43,29 @@
       ) Отмена
       button.btn-main
         span.btn-main__text Сохранить
+
+    message(
+      v-if='responseMessage.check'
+      :responseMessage='responseMessage'
+      @closeMessage='responseMessage.check=false'
+    )
 </template>
 
 <script>
 import { mapState, mapActions, mapMutations } from 'vuex'
+import { verificationForm } from '../verification'
 
 export default {
+  components: {
+    message: () => import('./error')
+  },
   data() {
     return {
-      editPhoto: 'no-photo.jpg'
+      responseMessage: {
+        check: false,
+        type: '',
+        text: ''
+      },
     }
   },
   computed: {
@@ -79,6 +93,14 @@ export default {
 
     async addThisReview() {
       try {
+        const thisVerificationForm = verificationForm(event.target);
+        if (!thisVerificationForm) {
+          if ('.input-add-photo.error') {
+            event.target.querySelector('.photo').classList.add('error');
+          }
+          return;
+        }
+
         const form = event.target;
         const formData = new FormData(form);
         if (this.editReview.id) {
@@ -89,7 +111,9 @@ export default {
 
         this.$emit('remove');
       } catch (error) {
-
+        this.responseMessage.check=true;
+        this.responseMessage.type='error';
+        this.responseMessage.text = error.response.data.error || error.response.data.errors[Object.keys(error.response.data.errors)[0]][0];
       }
     }
   }
@@ -145,7 +169,12 @@ export default {
     background-repeat: no-repeat;
     border-radius: 100%;
 
+    &.error {
+      border: 1px dashed $error-color;
+    }
+
     &.active {
+      border: none;
       background-size: cover;
     }
   }

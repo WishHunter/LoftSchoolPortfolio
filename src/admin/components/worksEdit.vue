@@ -50,13 +50,26 @@
         ) Отмена
       button.btn-main
         span.btn-main__text Сохранить
+
+    message(
+      v-if='responseMessage.check'
+      :responseMessage='responseMessage'
+      @closeMessage='responseMessage.check=false'
+    )
 </template>
 
 <script>
 import { mapState, mapActions, mapMutations } from 'vuex'
+import { verificationForm } from '../verification'
+
 export default {
   data() {
     return {
+      responseMessage: {
+        check: false,
+        type: '',
+        text: ''
+      },
       tegs: []
     }
   },
@@ -82,7 +95,13 @@ export default {
     },
 
     async addThisWork() {
+      //TODO не работает изменение работы
       try {
+        const thisVerificationForm = verificationForm(event.target);
+        if (!thisVerificationForm) {
+          return;
+        }
+
         const form = event.target;
         const formData = new FormData(form);
         if (this.editWork.id) {
@@ -93,7 +112,9 @@ export default {
 
         this.$emit('remove');
       } catch (error) {
-
+        this.responseMessage.check=true;
+        this.responseMessage.type='error';
+        this.responseMessage.text = error.response.data.error || error.response.data.errors[Object.keys(error.response.data.errors)[0]][0];
       }
     },
 
@@ -187,6 +208,13 @@ export default {
     left: 0;
     cursor: pointer;
     z-index: 5;
+
+    &.error {
+      & + .img-content .img-text {
+        border-color: $error-color;
+        color: $error-color;
+      }
+    }
   }
   .img-preload {
     position: relative;

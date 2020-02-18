@@ -29,20 +29,10 @@ export default {
   methods: {
     requiredImgElem(userPhoto) {
 			return require(`../images/content/${userPhoto}`);
-    },
-    async tokenTest() {
-      try {
-        const {data} = await $axios.get('/user');
-        localStorage.setItem('user', data.user.id);
-      } catch (error) {
-        console.log(error);
-        this.$router.replace('/login');
-      }
     }
   },
   created() {
     this.userPhoto = this.requiredImgElem(this.userPhoto);
-    this.tokenTest()
   }
 }
 </script>
@@ -90,17 +80,49 @@ export default {
   input {
     padding: 5px 0;
     border: none;
-    border-bottom: 1px solid #000;
-    background: none;
-    width: 100%;
+    border-bottom: 1px solid #414c63;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-position: center left;
     font-weight: 600;
-    &:focus {
+    color: #414c63;
+
+    transition: background, border .2s;
+
+    &:hover, &:focus {
       outline: none;
-      border-color: #383bcf;
+      border-color: $main-color;
+      & + .login__desc + .login__icon {
+        fill: $main-color;
+      }
+    }
+
+    &:focus + .login__desc, &.has-value + .login__desc {
+      bottom: 100%;
+    }
+
+    &.error {
+      border-bottom-color: $error-color;
+      color: $error-color;
+
+      & + .login__desc + .login__icon {
+        fill: $error-color;
+      }
     }
   }
   textarea {
     resize: none;
+    border: 1px solid #414c63;
+
+    &:hover, &:focus {
+      outline: none;
+      border-color: $main-color;
+    }
+
+    &.error {
+      border-color: $error-color;
+      color: $error-color;
+    }
   }
   .content {
     min-height: 100vh;

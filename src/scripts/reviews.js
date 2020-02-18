@@ -47,13 +47,15 @@ new Vue({
 			let prev = this.$el.querySelector(".reviews__arrow--prev");
 			let next = this.$el.querySelector(".reviews__arrow--next");
 
-			if (this.$refs.flickity.selectedIndex() === 0) {
-				prev.disabled = true;
+      if (this.$refs.flickity.selectedIndex() === 0) {
+        prev.disabled = true;
+        next.disabled = false;
 				return;
 			};
 
 			if (this.$refs.flickity.selectedIndex() === this.$refs.flickity.slides().length - 1) {
-				next.disabled = true;
+        next.disabled = true;
+        prev.disabled = false;
 				return;
 			};
 

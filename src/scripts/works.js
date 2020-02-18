@@ -41,8 +41,13 @@ const worksImg = {
 		activeElem: Number,
 		visibleDots: Number,
 		visibleDotStart: Number
-	},
-	methods: {
+  },
+  computed: {
+    worksActive() {
+      return [this.works[this.activeElem]];
+    }
+  },
+  methods: {
 		changeSlide(change) {
 			this.$emit('change', change);
 		}
